@@ -5,6 +5,12 @@ var IMAGES = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var OBJECT_COUNT = 8;
 
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
+var mapList = map.querySelector('.map__pins');
+var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+
 var getRandomValue = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -29,7 +35,7 @@ var getRandomFacilities = function (array) {
   return randomFacilities;
 };
 
-var  neighborMassive = [];
+var neighborMassive = [];
 
 var createMassive = function (count) {
   for (var i = 1; i <= count; i++) {
@@ -61,31 +67,22 @@ var createMassive = function (count) {
 
 createMassive(OBJECT_COUNT);
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var cloneObject = function (array) {
+  var objectElement = pin.cloneNode(true);
+  objectElement.style.left = array.location.x + 'px';
+  objectElement.style.top = array.location.y + 'px';
+  objectElement.querySelector('img').src = array.author.avatar;
+  objectElement.querySelector('img').alt = array.offer.title;
 
-var mapList = map.querySelector('.map__pins');
-var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-
-var renderObject = function (array, count) {
-  for (var a = 0; a < count; a++) {
-    var objectElement = pin.cloneNode(true);
-    console.log(objectElement);
-    objectElement.style = 'left:' + array[a].location.x + 'px; top: ' + array[a].location.y + 'px;';
-    objectElement.querySelector('img').src = array[a].author.avatar;
-    objectElement.querySelector('img').alt = array[a].offer.title;
-  }
   return objectElement;
 };
 
-renderObject(createMassive(OBJECT_COUNT), OBJECT_COUNT);
-
-var appendObject = function (count) {
+var renderObject = function (count) {
   var fragment = document.createDocumentFragment();
-  for (var l = 1; l < count; l++) {
-    fragment.appendChild(renderObject(neighborMassive, count));
+  for (var l = 0; l < count; l++) {
+    fragment.appendChild(cloneObject(neighborMassive[l]));
   }
   mapList.appendChild(fragment);
 };
 
-appendObject(OBJECT_COUNT);
+renderObject(OBJECT_COUNT);
