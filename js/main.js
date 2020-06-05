@@ -5,14 +5,14 @@ var IMAGES = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.g
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var OBJECT_COUNT = 8;
 
-var getRandom = function (min, max) {
+var getRandomValue = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var getRandomFacilities = function (array) {
   var randomFacilities = [];
 
-  for (var j = 1; j <= getRandom(1, FACILITIES.length); j++) {
+  for (var j = 1; j <= getRandomValue(1, FACILITIES.length); j++) {
     var random = Math.floor(Math.random() * array.length);
     var count = 0;
 
@@ -29,13 +29,11 @@ var getRandomFacilities = function (array) {
   return randomFacilities;
 };
 
-var massive = [];
+var  neighborMassive = [];
 
 var createMassive = function (count) {
-  var object = {};
-
   for (var i = 1; i <= count; i++) {
-    object[i] = {
+    neighborMassive.push({
       author: {
         avatar: 'img/avatars/user' + '0' + [i] + '.png'
       },
@@ -53,13 +51,12 @@ var createMassive = function (count) {
         photos: getRandomFacilities(IMAGES),
       },
       location: {
-        x: getRandom(0, window.innerWidth),
-        y: getRandom(130, 650)
+        x: getRandomValue(0, window.innerWidth),
+        y: getRandomValue(130, 650)
       }
-    };
-    massive.push(object[i]);
+    });
   }
-  return massive;
+  return neighborMassive;
 };
 
 createMassive(OBJECT_COUNT);
@@ -86,7 +83,7 @@ renderObject(createMassive(OBJECT_COUNT), OBJECT_COUNT);
 var appendObject = function (count) {
   var fragment = document.createDocumentFragment();
   for (var l = 1; l < count; l++) {
-    fragment.appendChild(renderObject(massive, count));
+    fragment.appendChild(renderObject(neighborMassive, count));
   }
   mapList.appendChild(fragment);
 };
