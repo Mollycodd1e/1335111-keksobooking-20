@@ -92,6 +92,25 @@ var getWordGuest = function (array) {
   return wordGuest;
 };
 
+var fillFeatures = function (array) {
+  var featuresArray = array.offer.features;
+  var addFeaturesToHtml = [];
+
+  for (var j = 0; j < featuresArray.length; j++) {
+
+    var randomFeature = '';
+
+    for (var k = 0; k < FACILITIES.length; k++) {
+
+      if (featuresArray[j] === FACILITIES[k]) {
+        randomFeature = FACILITIES[k];
+      }
+    }
+    addFeaturesToHtml.push(randomFeature);
+  }
+  return addFeaturesToHtml;
+}
+
 var advertsArray = [];
 
 var createAdverts = function (count) {
@@ -161,19 +180,8 @@ var cloneCard = function (array) {
   array[0].offer.guests + ' ' + getWordGuest(array[0]);
   advertsCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + array[0].offer.checkin + ', выезд до ' + array[0].offer.checkout;
 
-  var featuresArray = array[0].offer.features;
-
-  for (var j = 0; j < featuresArray.length; j++) {
-
-    var randomFeature = '';
-
-    for (var k = 0; k < FACILITIES.length; k++) {
-
-      if (featuresArray[j] === FACILITIES[k]) {
-        randomFeature = FACILITIES[k];
-      }
-    }
-    advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + randomFeature).textContent = randomFeature;
+  for (var j = 0; j < fillFeatures(array[0]).length; j++) {
+    advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + fillFeatures(array[0])[j]).textContent = fillFeatures(array[0])[j];
   }
 
   for (var i = 0; i < FACILITIES.length; i++) {
@@ -194,7 +202,6 @@ var cloneCard = function (array) {
       advertsCard.querySelector('.popup__photos').querySelector('.popup__photo').src = photosArray[l];
     }
   }
-
   return advertsCard;
 };
 
