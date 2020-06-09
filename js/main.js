@@ -109,7 +109,7 @@ var fillFeatures = function (array) {
     addFeaturesToHtml.push(randomFeature);
   }
   return addFeaturesToHtml;
-}
+};
 
 var advertsArray = [];
 
