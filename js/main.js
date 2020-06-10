@@ -54,14 +54,23 @@ var getRoomType = function (array) {
 
   var roomType = '';
 
-  if (array.offer.type === 'flat') {
-    roomType = 'Квартира';
-  } else if (array.offer.type === 'bungalo') {
-    roomType = 'Бунгало';
-  } else if (array.offer.type === 'house') {
-    roomType = 'Дом';
-  } else {
-    roomType = 'Дворец';
+  var compare = array.offer.type;
+
+  switch (compare) {
+    case 'flat':
+      roomType = 'Квартира';
+      break;
+    case 'bungalo':
+      roomType = 'Бунгало';
+      break;
+    case 'house':
+      roomType = 'Дом';
+      break;
+    case 'palace':
+      roomType = 'Дворец';
+      break;
+    default:
+      roomType = 'Нет совпадений';
   }
   return roomType;
 };
