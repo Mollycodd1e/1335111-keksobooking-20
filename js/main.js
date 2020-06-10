@@ -72,6 +72,7 @@ var getRoomType = function (array) {
     default:
       roomType = 'Нет совпадений';
   }
+
   return roomType;
 };
 
@@ -201,24 +202,29 @@ var cloneCard = function (array) {
 
   advertsCard.querySelector('.popup__description').textContent = array[0].offer.description;
 
-  var photosArray = array[0].offer.photos;
+  var addPhotoToCard = function (array) {
+    var photosArray = array.offer.photos;
 
-  for (var l = 0; l < photosArray.length; l++) {
-    if (l >= 1) {
-      var addImage = '<img src=' + photosArray[l] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
-      advertsCard.querySelector('.popup__photos').insertAdjacentHTML('beforeend', addImage);
-    } else {
-      advertsCard.querySelector('.popup__photos').querySelector('.popup__photo').src = photosArray[l];
+    for (var l = 0; l < photosArray.length; l++) {
+      if (l >= 1) {
+        var addImage = '<img src=' + photosArray[l] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+        advertsCard.querySelector('.popup__photos').insertAdjacentHTML('beforeend', addImage);
+      } else {
+        advertsCard.querySelector('.popup__photos').querySelector('.popup__photo').src = photosArray[l];
+      }
     }
   }
+
+  addPhotoToCard(array[0]);
+
   return advertsCard;
 };
 
 var renderCards = function (array) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < 1; i++) {
-    fragment.appendChild(cloneCard(array));
-  }
+    for (var i = 0; i < 1; i++) {
+      fragment.appendChild(cloneCard(array));
+    }
   map.insertBefore(fragment, map.querySelector('.map__filters-container'));
 };
 
