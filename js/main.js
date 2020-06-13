@@ -245,14 +245,12 @@ var roomOptions = roomNumberInputElement.children;
 var guestOptions = guestNumberInputElement.children;
 
 for (var option of roomOptions) {
-  option.removeAttribute('selected', 'selected');
-}
+  value.removeAttribute('selected', 'selected');
+};
 
 for (var option of guestOptions) {
   option.removeAttribute('selected', 'selected');
-}
-
-document.querySelector('#room1').selected = 'true';
+};
 
 var MAIN_PIN_X_LOCATION = 601;
 var MAIN_PIN_Y_LOCATION = 406;
