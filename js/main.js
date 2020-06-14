@@ -19,6 +19,9 @@ var MAX_X_LOCATION = 1200;
 var MAX_Y_LOCATION = 630;
 var OFFSET_X = 25;
 var OFFSET_Y = 70;
+var MAIN_PIN_X_LOCATION = 601;
+var MAIN_PIN_Y_LOCATION = 406;
+var MAIN_PIN_Y_OFFSET = 53;
 
 var mapElement = document.querySelector('.map');
 
@@ -192,7 +195,7 @@ var renderAdverts = function (count) {
   mapListElement.appendChild(fragment);
 };
 
-//renderAdverts(OBJECT_COUNT);
+//  renderAdverts(OBJECT_COUNT);
 
 var cardElement = document.querySelector('#card').content.querySelector('.popup');
 
@@ -231,7 +234,7 @@ var renderCards = function (card) {
   mapElement.insertBefore(fragment, mapElement.querySelector('.map__filters-container'));
 };
 
-//renderCards(createAdverts(OBJECT_COUNT)[0]);
+//  renderCards(createAdverts(OBJECT_COUNT)[0]);
 
 var mapPinMainElement = document.querySelector('.map__pin--main');
 var adFormElement = document.querySelector('.ad-form');
@@ -244,29 +247,33 @@ var guestNumberInputElement = adFormElement.querySelector('#capacity');
 var roomOptions = roomNumberInputElement.children;
 var guestOptions = guestNumberInputElement.children;
 
-for (var option of roomOptions) {
-  value.removeAttribute('selected', 'selected');
+var removeSelectedElements = function (options) {
+  for (var i = 0; i < options.length; i++) {
+    options[i].removeAttribute('selected', 'selected');
+  }
 };
 
-for (var option of guestOptions) {
-  option.removeAttribute('selected', 'selected');
-};
-
-var MAIN_PIN_X_LOCATION = 601;
-var MAIN_PIN_Y_LOCATION = 406;
-var MAIN_PIN_Y_OFFSET = 53;
+removeSelectedElements(roomOptions);
+removeSelectedElements(guestOptions);
 
 adFormAddressElement.value = MAIN_PIN_X_LOCATION + 'px' + ' ' + MAIN_PIN_Y_LOCATION + 'px';
 
 mapFiltersElement.classList.add('map__filters--disabled');
 
-for (var fieldset of formFieldsetsElement) {
-  fieldset.setAttribute('disabled', 'disabled'); 
-}
+var setDisabledElements = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute('disabled', 'disabled');
+  }
+};
 
-for (var select of formSelectsElement) {
-  select.setAttribute('disabled', 'disabled');
-}
+var removeDisabledElements = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute('disabled', 'disabled');
+  }
+};
+
+setDisabledElements(formFieldsetsElement);
+setDisabledElements(formSelectsElement);
 
 var activeState = function () {
   mapElement.classList.remove('map--faded');
@@ -275,22 +282,13 @@ var activeState = function () {
   adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
   (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
 
-  for (var fieldset of formFieldsetsElement) {
-    fieldset.removeAttribute('disabled', 'disabled'); 
-  }
-  
-  for (var select of formSelectsElement) {
-    select.removeAttribute('disabled', 'disabled');
-  }
+  removeDisabledElements(formFieldsetsElement);
+  removeDisabledElements(formSelectsElement);
 };
 
 mapPinMainElement.addEventListener('mousedown', function (mouseButton) {
-  if (typeof mouseButton === 'object') {
-    switch (mouseButton.button) {
-      case 0:
-        activeState();
-        break;
-    }
+  if (mouseButton.button === 0) {
+    activeState();
   }
 });
 
@@ -300,16 +298,16 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
   }
 });
 
-roomNumberInputElement.addEventListener('invalid', function () { 
+adFormElement.addEventListener('invalid', function () {
   if (roomNumberInputElement.selectedValue === 1 && guestNumberInputElement.selectedValue !== 1) {
-     roomNumberInputElement.setCustomValidity('Для 1 гостя');
+    roomNumberInputElement.setCustomValidity('Для 1 гостя');
   } else if ((roomNumberInputElement.selectedValue === 2 && guestNumberInputElement.selectedValue !== 2) ||
     (roomNumberInputElement.selectedValue === 2 && guestNumberInputElement.selectedValue !== 1)) {
-      roomNumberInputElement.setCustomValidity('Для 1 или 2 гостей');
+    roomNumberInputElement.setCustomValidity('Для 1 или 2 гостей');
   } else if (roomNumberInputElement.selectedValue === 3 && guestNumberInputElement.selectedValue < 0) {
     roomNumberInputElement.setCustomValidity('Для 1, 2 или 3 гостей');
   } else if (roomNumberInputElement.selectedValue === 100 && guestNumberInputElement.selectedValue !== 0) {
-  roomNumberInputElement.setCustomValidity('Не для гостей');
+    roomNumberInputElement.setCustomValidity('Не для гостей');
   } else {
     roomNumberInputElement.setCustomValidity('');
   }
