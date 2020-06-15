@@ -224,7 +224,6 @@ var getAdvertCardPopup = function (card) {
   return advertsCard;
 };
 
-
 var renderCards = function (card) {
   var fragment = document.createDocumentFragment();
   fragment.appendChild(getAdvertCardPopup(card));
@@ -305,11 +304,10 @@ roomNumberInputElement.addEventListener('change', function () {
 
   if (roomNumberInputElement.value === '1') {
     guestOptions[2].removeAttribute('disabled', 'disabled');
-  } else if  (roomNumberInputElement.value === '2') {
+  } else if (roomNumberInputElement.value === '2') {
     guestOptions[2].removeAttribute('disabled', 'disabled');
     guestOptions[1].removeAttribute('disabled', 'disabled');
-  }
-  else if  (roomNumberInputElement.value === '3') {
+  } else if (roomNumberInputElement.value === '3') {
     guestOptions[2].removeAttribute('disabled', 'disabled');
     guestOptions[1].removeAttribute('disabled', 'disabled');
     guestOptions[0].removeAttribute('disabled', 'disabled');
@@ -342,5 +340,4 @@ guestNumberInputElement.addEventListener('change', function () {
   } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value === '0') {
     guestNumberInputElement.setCustomValidity('');
   }
-  console.log(guestNumberInputElement.value);
 });
