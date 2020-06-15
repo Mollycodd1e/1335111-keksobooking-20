@@ -195,8 +195,6 @@ var renderAdverts = function (count) {
   mapListElement.appendChild(fragment);
 };
 
-//  renderAdverts(OBJECT_COUNT);
-
 var cardElement = document.querySelector('#card').content.querySelector('.popup');
 
 var getAdvertCardPopup = function (card) {
@@ -281,7 +279,11 @@ var activeState = function () {
   mapFiltersElement.classList.remove('map__filters--disabled');
   adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
   (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-
+  guestOptions[2].setAttribute('selected', 'selected');
+  guestOptions[3].setAttribute('disabled', 'disabled');
+  guestOptions[1].setAttribute('disabled', 'disabled');
+  guestOptions[0].setAttribute('disabled', 'disabled');
+  renderAdverts(OBJECT_COUNT);
   removeDisabledElements(formFieldsetsElement);
   removeDisabledElements(formSelectsElement);
 };
@@ -298,17 +300,47 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
   }
 });
 
-adFormElement.addEventListener('invalid', function () {
-  if (roomNumberInputElement.selectedValue === 1 && guestNumberInputElement.selectedValue !== 1) {
-    roomNumberInputElement.setCustomValidity('Для 1 гостя');
-  } else if ((roomNumberInputElement.selectedValue === 2 && guestNumberInputElement.selectedValue !== 2) ||
-    (roomNumberInputElement.selectedValue === 2 && guestNumberInputElement.selectedValue !== 1)) {
-    roomNumberInputElement.setCustomValidity('Для 1 или 2 гостей');
-  } else if (roomNumberInputElement.selectedValue === 3 && guestNumberInputElement.selectedValue < 0) {
-    roomNumberInputElement.setCustomValidity('Для 1, 2 или 3 гостей');
-  } else if (roomNumberInputElement.selectedValue === 100 && guestNumberInputElement.selectedValue !== 0) {
-    roomNumberInputElement.setCustomValidity('Не для гостей');
-  } else {
-    roomNumberInputElement.setCustomValidity('');
+roomNumberInputElement.addEventListener('change', function () {
+  setDisabledElements(guestOptions);
+
+  if (roomNumberInputElement.value === '1') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+  } else if  (roomNumberInputElement.value === '2') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+    guestOptions[1].removeAttribute('disabled', 'disabled');
   }
+  else if  (roomNumberInputElement.value === '3') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+    guestOptions[1].removeAttribute('disabled', 'disabled');
+    guestOptions[0].removeAttribute('disabled', 'disabled');
+  } else {
+    guestOptions[3].removeAttribute('disabled', 'disabled');
+  }
+});
+
+roomNumberInputElement.addEventListener('change', function () {
+  if (roomNumberInputElement.value === '1' && guestNumberInputElement.value !== '1') {
+    guestNumberInputElement.setCustomValidity('Только для 1 гостя');
+  } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '1' && guestNumberInputElement.value !== '2') {
+    guestNumberInputElement.setCustomValidity('Только для 1 или 2 гостей');
+  } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value === '0') {
+    guestNumberInputElement.setCustomValidity('Только для 1,2 или 3 гостей');
+  } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value !== '0') {
+    guestNumberInputElement.setCustomValidity('Не для гостей');
+  } else {
+    guestNumberInputElement.setCustomValidity('');
+  }
+});
+
+guestNumberInputElement.addEventListener('change', function () {
+  if (roomNumberInputElement.value === '1' && guestNumberInputElement.value === '1') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '0' && guestNumberInputElement.value !== '3') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value !== '0') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value === '0') {
+    guestNumberInputElement.setCustomValidity('');
+  }
+  console.log(guestNumberInputElement.value);
 });
