@@ -380,21 +380,21 @@ housingTypeElement.addEventListener('change', housingTypeMatching);
 
 var timeInMatching = function () {
   if (timeInInputElement.value === '12:00') {
-    timeOutInputElement.value = '12:00';
+    timeOutInputElement.value = timeInInputElement.value;
   } else if (timeInInputElement.value === '13:00') {
-    timeOutInputElement.value = '13:00';
+    timeOutInputElement.value = timeInInputElement.value;
   } else if (timeInInputElement.value === '14:00') {
-    timeOutInputElement.value = '14:00';
+    timeOutInputElement.value = timeInInputElement.value;
   }
 };
 
 var timeOutMatching = function () {
   if (timeOutInputElement.value === '12:00') {
-    timeInInputElement.value = '12:00';
+    timeInInputElement.value = timeOutInputElement.value;
   } else if (timeOutInputElement.value === '13:00') {
-    timeInInputElement.value = '13:00';
+    timeInInputElement.value = timeOutInputElement.value;
   } else if (timeOutInputElement.value === '14:00') {
-    timeInInputElement.value = '14:00';
+    timeInInputElement.value = timeOutInputElement.value;
   }
 };
 
