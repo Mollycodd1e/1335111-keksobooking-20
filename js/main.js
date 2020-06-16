@@ -231,7 +231,7 @@ var renderCards = function (card) {
   mapElement.insertBefore(fragment, mapElement.querySelector('.map__filters-container'));
 };
 
-//  renderCards(createAdverts(OBJECT_COUNT)[0]);
+renderCards(createAdverts(OBJECT_COUNT)[0]);
 
 var mapPinMainElement = document.querySelector('.map__pin--main');
 var adFormElement = document.querySelector('.ad-form');
@@ -243,6 +243,10 @@ var roomNumberInputElement = adFormElement.querySelector('#room_number');
 var guestNumberInputElement = adFormElement.querySelector('#capacity');
 var roomOptions = roomNumberInputElement.children;
 var guestOptions = guestNumberInputElement.children;
+var housingTypeElement = adFormElement.querySelector('#type');
+var priceInputElement = adFormElement.querySelector('#price');
+var timeInInputElement = adFormElement.querySelector('#timein');
+var timeOutInputElement = adFormElement.querySelector('#timeout');
 
 var removeSelectedElements = function (options) {
   for (var i = 0; i < options.length; i++) {
@@ -278,10 +282,7 @@ var activeState = function () {
   mapFiltersElement.classList.remove('map__filters--disabled');
   adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
   (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-  guestOptions[2].setAttribute('selected', 'selected');
-  guestOptions[3].setAttribute('disabled', 'disabled');
-  guestOptions[1].setAttribute('disabled', 'disabled');
-  guestOptions[0].setAttribute('disabled', 'disabled');
+
   renderAdverts(OBJECT_COUNT);
   removeDisabledElements(formFieldsetsElement);
   removeDisabledElements(formSelectsElement);
@@ -299,8 +300,9 @@ mapPinMainElement.addEventListener('keydown', function (evt) {
   }
 });
 
-roomNumberInputElement.addEventListener('change', function () {
+var roomGuestMatching = function () {
   setDisabledElements(guestOptions);
+  guestOptions[2].setAttribute('selected', 'selected');
 
   if (roomNumberInputElement.value === '1') {
     guestOptions[2].removeAttribute('disabled', 'disabled');
@@ -314,7 +316,10 @@ roomNumberInputElement.addEventListener('change', function () {
   } else {
     guestOptions[3].removeAttribute('disabled', 'disabled');
   }
-});
+};
+
+roomNumberInputElement.addEventListener('change', roomGuestMatching);
+mapPinMainElement.addEventListener('click', roomGuestMatching);
 
 roomNumberInputElement.addEventListener('change', function () {
   if (roomNumberInputElement.value === '1' && guestNumberInputElement.value !== '1') {
@@ -341,3 +346,57 @@ guestNumberInputElement.addEventListener('change', function () {
     guestNumberInputElement.setCustomValidity('');
   }
 });
+
+
+var housingTypeMatching = function () {
+  var housingType = housingTypeElement.value;
+
+  switch (housingType) {
+    case 'flat':
+      housingType = 'Квартира';
+      priceInputElement.setAttribute('placeholder', '1000');
+      priceInputElement.min = '1000';
+      break;
+    case 'bungalo':
+      housingType = 'Бунгало';
+      priceInputElement.setAttribute('placeholder', '0');
+      priceInputElement.min = '0';
+      break;
+    case 'house':
+      housingType = 'Дом';
+      priceInputElement.setAttribute('placeholder', '5000');
+      priceInputElement.min = '5000';
+      break;
+    case 'palace':
+      housingType = 'Дворец';
+      priceInputElement.setAttribute('placeholder', '10000');
+      priceInputElement.min = '10000';
+      break;
+  }
+};
+
+mapPinMainElement.addEventListener('click', housingTypeMatching);
+housingTypeElement.addEventListener('change', housingTypeMatching);
+
+var timeInMatching = function () {
+  if (timeInInputElement.value === '12:00') {
+    timeOutInputElement.value = '12:00';
+  } else if (timeInInputElement.value === '13:00') {
+    timeOutInputElement.value = '13:00';
+  } else if (timeInInputElement.value === '14:00') {
+    timeOutInputElement.value = '14:00';
+  }
+};
+
+var timeOutMatching = function () {
+  if (timeOutInputElement.value === '12:00') {
+    timeInInputElement.value = '12:00';
+  } else if (timeOutInputElement.value === '13:00') {
+    timeInInputElement.value = '13:00';
+  } else if (timeOutInputElement.value === '14:00') {
+    timeInInputElement.value = '14:00';
+  }
+};
+
+timeInInputElement.addEventListener('change', timeInMatching);
+timeOutInputElement.addEventListener('change', timeOutMatching);
