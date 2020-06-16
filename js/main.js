@@ -190,7 +190,8 @@ var createPinElement = function (array) {
 var renderAdverts = function (count) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < count; i++) {
-    fragment.appendChild(createPinElement(advertsArray[i]));
+    fragment.appendChild(createPinElement(advertsArray[i])).classList.add('map__pin--side');
+
   }
   mapListElement.appendChild(fragment);
 };
@@ -231,7 +232,6 @@ var renderCards = function (card) {
   mapElement.insertBefore(fragment, mapElement.querySelector('.map__filters-container'));
 };
 
-renderCards(createAdverts(OBJECT_COUNT)[0]);
 
 var mapPinMainElement = document.querySelector('.map__pin--main');
 var adFormElement = document.querySelector('.ad-form');
@@ -282,10 +282,22 @@ var activeState = function () {
   mapFiltersElement.classList.remove('map__filters--disabled');
   adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
   (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-
+ 
   renderAdverts(OBJECT_COUNT);
   removeDisabledElements(formFieldsetsElement);
   removeDisabledElements(formSelectsElement);
+
+  var allPinElements = document.querySelectorAll('.map__pin--side');
+
+  var showCardOnCLick = function (card, button) {
+    button.addEventListener('click', function () {
+      renderCards(card); 
+    });
+  }
+ 
+  for (var i = 0; i < OBJECT_COUNT; i++) {
+    showCardOnCLick(createAdverts(OBJECT_COUNT)[i], allPinElements[i]);
+  }
 };
 
 mapPinMainElement.addEventListener('mousedown', function (mouseButton) {
