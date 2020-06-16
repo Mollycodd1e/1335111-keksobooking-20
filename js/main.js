@@ -282,7 +282,6 @@ var activeState = function () {
   mapFiltersElement.classList.remove('map__filters--disabled');
   adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
   (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
- 
   renderAdverts(OBJECT_COUNT);
   removeDisabledElements(formFieldsetsElement);
   removeDisabledElements(formSelectsElement);
@@ -291,10 +290,10 @@ var activeState = function () {
 
   var showCardOnCLick = function (card, button) {
     button.addEventListener('click', function () {
-      renderCards(card); 
+      renderCards(card);
     });
-  }
- 
+  };
+
   for (var i = 0; i < OBJECT_COUNT; i++) {
     showCardOnCLick(createAdverts(OBJECT_COUNT)[i], allPinElements[i]);
   }
