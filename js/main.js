@@ -19,9 +19,11 @@ var MAX_X_LOCATION = 1200;
 var MAX_Y_LOCATION = 630;
 var OFFSET_X = 25;
 var OFFSET_Y = 70;
+var MAIN_PIN_X_LOCATION = 601;
+var MAIN_PIN_Y_LOCATION = 406;
+var MAIN_PIN_Y_OFFSET = 53;
 
 var mapElement = document.querySelector('.map');
-mapElement.classList.remove('map--faded');
 
 var mapListElement = mapElement.querySelector('.map__pins');
 var pinElement = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -188,12 +190,11 @@ var createPinElement = function (array) {
 var renderAdverts = function (count) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < count; i++) {
-    fragment.appendChild(createPinElement(advertsArray[i]));
+    fragment.appendChild(createPinElement(advertsArray[i])).classList.add('map__pin--side');
+
   }
   mapListElement.appendChild(fragment);
 };
-
-renderAdverts(OBJECT_COUNT);
 
 var cardElement = document.querySelector('#card').content.querySelector('.popup');
 
@@ -224,7 +225,6 @@ var getAdvertCardPopup = function (card) {
   return advertsCard;
 };
 
-
 var renderCards = function (card) {
   var fragment = document.createDocumentFragment();
   fragment.appendChild(getAdvertCardPopup(card));
@@ -232,4 +232,182 @@ var renderCards = function (card) {
   mapElement.insertBefore(fragment, mapElement.querySelector('.map__filters-container'));
 };
 
-renderCards(createAdverts(OBJECT_COUNT)[0]);
+
+var mapPinMainElement = document.querySelector('.map__pin--main');
+var adFormElement = document.querySelector('.ad-form');
+var formFieldsetsElement = adFormElement.children;
+var mapFiltersElement = document.querySelector('.map__filters');
+var formSelectsElement = mapFiltersElement.children;
+var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
+var roomNumberInputElement = adFormElement.querySelector('#room_number');
+var guestNumberInputElement = adFormElement.querySelector('#capacity');
+var roomOptions = roomNumberInputElement.children;
+var guestOptions = guestNumberInputElement.children;
+var housingTypeElement = adFormElement.querySelector('#type');
+var priceInputElement = adFormElement.querySelector('#price');
+var timeInInputElement = adFormElement.querySelector('#timein');
+var timeOutInputElement = adFormElement.querySelector('#timeout');
+
+var removeSelectedElements = function (options) {
+  for (var i = 0; i < options.length; i++) {
+    options[i].removeAttribute('selected', 'selected');
+  }
+};
+
+removeSelectedElements(roomOptions);
+removeSelectedElements(guestOptions);
+
+adFormAddressElement.value = MAIN_PIN_X_LOCATION + 'px' + ' ' + MAIN_PIN_Y_LOCATION + 'px';
+
+mapFiltersElement.classList.add('map__filters--disabled');
+
+var setDisabledElements = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute('disabled', 'disabled');
+  }
+};
+
+var removeDisabledElements = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute('disabled', 'disabled');
+  }
+};
+
+setDisabledElements(formFieldsetsElement);
+setDisabledElements(formSelectsElement);
+
+var activeState = function () {
+  mapElement.classList.remove('map--faded');
+  adFormElement.classList.remove('ad-form--disabled');
+  mapFiltersElement.classList.remove('map__filters--disabled');
+  adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
+  (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
+  renderAdverts(OBJECT_COUNT);
+  removeDisabledElements(formFieldsetsElement);
+  removeDisabledElements(formSelectsElement);
+
+  var allPinElements = document.querySelectorAll('.map__pin--side');
+
+  var showCardOnCLick = function (card, button) {
+    button.addEventListener('click', function () {
+      renderCards(card);
+    });
+  };
+
+  for (var i = 0; i < OBJECT_COUNT; i++) {
+    showCardOnCLick(createAdverts(OBJECT_COUNT)[i], allPinElements[i]);
+  }
+};
+
+mapPinMainElement.addEventListener('mousedown', function (mouseButton) {
+  if (mouseButton.button === 0) {
+    activeState();
+  }
+});
+
+mapPinMainElement.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activeState();
+  }
+});
+
+var roomGuestMatching = function () {
+  setDisabledElements(guestOptions);
+  guestOptions[2].setAttribute('selected', 'selected');
+
+  if (roomNumberInputElement.value === '1') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+  } else if (roomNumberInputElement.value === '2') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+    guestOptions[1].removeAttribute('disabled', 'disabled');
+  } else if (roomNumberInputElement.value === '3') {
+    guestOptions[2].removeAttribute('disabled', 'disabled');
+    guestOptions[1].removeAttribute('disabled', 'disabled');
+    guestOptions[0].removeAttribute('disabled', 'disabled');
+  } else {
+    guestOptions[3].removeAttribute('disabled', 'disabled');
+  }
+};
+
+roomNumberInputElement.addEventListener('change', roomGuestMatching);
+mapPinMainElement.addEventListener('click', roomGuestMatching);
+
+roomNumberInputElement.addEventListener('change', function () {
+  if (roomNumberInputElement.value === '1' && guestNumberInputElement.value !== '1') {
+    guestNumberInputElement.setCustomValidity('Только для 1 гостя');
+  } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '1' && guestNumberInputElement.value !== '2') {
+    guestNumberInputElement.setCustomValidity('Только для 1 или 2 гостей');
+  } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value === '0') {
+    guestNumberInputElement.setCustomValidity('Только для 1,2 или 3 гостей');
+  } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value !== '0') {
+    guestNumberInputElement.setCustomValidity('Не для гостей');
+  } else {
+    guestNumberInputElement.setCustomValidity('');
+  }
+});
+
+guestNumberInputElement.addEventListener('change', function () {
+  if (roomNumberInputElement.value === '1' && guestNumberInputElement.value === '1') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '0' && guestNumberInputElement.value !== '3') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value !== '0') {
+    guestNumberInputElement.setCustomValidity('');
+  } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value === '0') {
+    guestNumberInputElement.setCustomValidity('');
+  }
+});
+
+
+var housingTypeMatching = function () {
+  var housingType = housingTypeElement.value;
+
+  switch (housingType) {
+    case 'flat':
+      housingType = 'Квартира';
+      priceInputElement.setAttribute('placeholder', '1000');
+      priceInputElement.min = '1000';
+      break;
+    case 'bungalo':
+      housingType = 'Бунгало';
+      priceInputElement.setAttribute('placeholder', '0');
+      priceInputElement.min = '0';
+      break;
+    case 'house':
+      housingType = 'Дом';
+      priceInputElement.setAttribute('placeholder', '5000');
+      priceInputElement.min = '5000';
+      break;
+    case 'palace':
+      housingType = 'Дворец';
+      priceInputElement.setAttribute('placeholder', '10000');
+      priceInputElement.min = '10000';
+      break;
+  }
+};
+
+mapPinMainElement.addEventListener('click', housingTypeMatching);
+housingTypeElement.addEventListener('change', housingTypeMatching);
+
+var timeInMatching = function () {
+  if (timeInInputElement.value === '12:00') {
+    timeOutInputElement.value = timeInInputElement.value;
+  } else if (timeInInputElement.value === '13:00') {
+    timeOutInputElement.value = timeInInputElement.value;
+  } else if (timeInInputElement.value === '14:00') {
+    timeOutInputElement.value = timeInInputElement.value;
+  }
+};
+
+var timeOutMatching = function () {
+  if (timeOutInputElement.value === '12:00') {
+    timeInInputElement.value = timeOutInputElement.value;
+  } else if (timeOutInputElement.value === '13:00') {
+    timeInInputElement.value = timeOutInputElement.value;
+  } else if (timeOutInputElement.value === '14:00') {
+    timeInInputElement.value = timeOutInputElement.value;
+  }
+};
+
+timeInInputElement.addEventListener('change', timeInMatching);
+timeOutInputElement.addEventListener('change', timeOutMatching);
