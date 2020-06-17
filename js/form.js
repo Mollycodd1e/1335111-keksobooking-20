@@ -3,47 +3,47 @@
 (function () {
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
-var adFormElement = document.querySelector('.ad-form');
-var formFieldsetsElement = adFormElement.children;
-var mapFiltersElement = document.querySelector('.map__filters');
-var formSelectsElement = mapFiltersElement.children;
-var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
-var roomNumberInputElement = adFormElement.querySelector('#room_number');
-var guestNumberInputElement = adFormElement.querySelector('#capacity');
-var roomOptions = roomNumberInputElement.children;
-var guestOptions = guestNumberInputElement.children;
+  var adFormElement = document.querySelector('.ad-form');
+  var formFieldsetsElement = adFormElement.children;
+  var mapFiltersElement = document.querySelector('.map__filters');
+  var formSelectsElement = mapFiltersElement.children;
+  var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
+  var roomNumberInputElement = adFormElement.querySelector('#room_number');
+  var guestNumberInputElement = adFormElement.querySelector('#capacity');
+  var roomOptions = roomNumberInputElement.children;
+  var guestOptions = guestNumberInputElement.children;
   var housingTypeElement = adFormElement.querySelector('#type');
-var priceInputElement = adFormElement.querySelector('#price');
-var timeInInputElement = adFormElement.querySelector('#timein');
-var timeOutInputElement = adFormElement.querySelector('#timeout');
+  var priceInputElement = adFormElement.querySelector('#price');
+  var timeInInputElement = adFormElement.querySelector('#timein');
+  var timeOutInputElement = adFormElement.querySelector('#timeout');
 
-var removeSelectedElements = function (options) {
-  for (var i = 0; i < options.length; i++) {
-    options[i].removeAttribute('selected', 'selected');
-  }
-};
+  var removeSelectedElements = function (options) {
+    for (var i = 0; i < options.length; i++) {
+      options[i].removeAttribute('selected', 'selected');
+    }
+  };
 
-removeSelectedElements(roomOptions);
-removeSelectedElements(guestOptions);
+  removeSelectedElements(roomOptions);
+  removeSelectedElements(guestOptions);
 
-adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
+  adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
 
-mapFiltersElement.classList.add('map__filters--disabled');
+  mapFiltersElement.classList.add('map__filters--disabled');
 
-var setDisabledElements = function (elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].setAttribute('disabled', 'disabled');
-  }
-};
+  var setDisabledElements = function (elements) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].setAttribute('disabled', 'disabled');
+    }
+  };
 
-var removeDisabledElements = function (elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute('disabled', 'disabled');
-  }
-};
+  var removeDisabledElements = function (elements) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('disabled', 'disabled');
+    }
+  };
 
-setDisabledElements(formFieldsetsElement);
-setDisabledElements(formSelectsElement);
+  setDisabledElements(formFieldsetsElement);
+  setDisabledElements(formSelectsElement);
 
   var roomGuestMatching = function () {
     setDisabledElements(guestOptions);
@@ -148,5 +148,5 @@ setDisabledElements(formSelectsElement);
 
   window.form = {
     removeDisabledElements: removeDisabledElements,
-  }
+  };
 })();

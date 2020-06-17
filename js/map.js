@@ -73,7 +73,6 @@
   window.map = {
     mapElement: mapElement,
     MAIN_PIN_X_LOCATION: MAIN_PIN_X_LOCATION,
-    MAIN_PIN_Y_LOCATION : MAIN_PIN_Y_LOCATION
-  }
-
+    MAIN_PIN_Y_LOCATION: MAIN_PIN_Y_LOCATION
+  };
 })();
