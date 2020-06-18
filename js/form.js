@@ -16,6 +16,7 @@
   var priceInputElement = adFormElement.querySelector('#price');
   var timeInInputElement = adFormElement.querySelector('#timein');
   var timeOutInputElement = adFormElement.querySelector('#timeout');
+  var timeFormElement = document.querySelector('.ad-form__element--time');
 
   var removeSelectedElements = function (options) {
     for (var i = 0; i < options.length; i++) {
@@ -49,17 +50,21 @@
     setDisabledElements(guestOptions);
     guestOptions[2].setAttribute('selected', 'selected');
 
-    if (roomNumberInputElement.value === '1') {
-      guestOptions[2].removeAttribute('disabled', 'disabled');
-    } else if (roomNumberInputElement.value === '2') {
-      guestOptions[2].removeAttribute('disabled', 'disabled');
-      guestOptions[1].removeAttribute('disabled', 'disabled');
-    } else if (roomNumberInputElement.value === '3') {
-      guestOptions[2].removeAttribute('disabled', 'disabled');
-      guestOptions[1].removeAttribute('disabled', 'disabled');
-      guestOptions[0].removeAttribute('disabled', 'disabled');
-    } else {
-      guestOptions[3].removeAttribute('disabled', 'disabled');
+    switch (roomNumberInputElement.value) {
+      case '1':
+        guestOptions[2].removeAttribute('disabled', 'disabled');
+        break;
+      case '2':
+        guestOptions[2].removeAttribute('disabled', 'disabled');
+        guestOptions[1].removeAttribute('disabled', 'disabled');
+        break;
+      case '3':
+        guestOptions[2].removeAttribute('disabled', 'disabled');
+        guestOptions[1].removeAttribute('disabled', 'disabled');
+        guestOptions[0].removeAttribute('disabled', 'disabled');
+        break;
+      default:
+        guestOptions[3].removeAttribute('disabled', 'disabled');
     }
   };
 
@@ -123,28 +128,20 @@
   mapPinMainElement.addEventListener('click', housingTypeMatching);
   housingTypeElement.addEventListener('change', housingTypeMatching);
 
-  var timeInMatching = function () {
-    if (timeInInputElement.value === '12:00') {
-      timeOutInputElement.value = timeInInputElement.value;
-    } else if (timeInInputElement.value === '13:00') {
-      timeOutInputElement.value = timeInInputElement.value;
-    } else if (timeInInputElement.value === '14:00') {
-      timeOutInputElement.value = timeInInputElement.value;
+  var timeMatching = function (evt) {
+    if (evt.target.value === '12:00') {
+      timeOutInputElement.value = evt.target.value;
+      timeInInputElement.value = evt.target.value;
+    } else if (evt.target.value === '13:00') {
+      timeOutInputElement.value = evt.target.value;
+      timeInInputElement.value = evt.target.value;
+    } else if (evt.target.value === '14:00') {
+      timeOutInputElement.value = evt.target.value;
+      timeInInputElement.value = evt.target.value;
     }
   };
 
-  var timeOutMatching = function () {
-    if (timeOutInputElement.value === '12:00') {
-      timeInInputElement.value = timeOutInputElement.value;
-    } else if (timeOutInputElement.value === '13:00') {
-      timeInInputElement.value = timeOutInputElement.value;
-    } else if (timeOutInputElement.value === '14:00') {
-      timeInInputElement.value = timeOutInputElement.value;
-    }
-  };
-
-  timeInInputElement.addEventListener('change', timeInMatching);
-  timeOutInputElement.addEventListener('change', timeOutMatching);
+  timeFormElement.addEventListener('change', timeMatching);
 
   window.form = {
     removeDisabledElements: removeDisabledElements,

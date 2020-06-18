@@ -44,10 +44,29 @@
     renderAdverts(window.data.OBJECT_COUNT);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
+    mapPinMainElement.setAttribute('disabled', 'disabled');
 
     var showCardOnCLick = function (card, button) {
       button.addEventListener('click', function () {
+        var openedCard = document.querySelector('.map__card');
+
+        if (openedCard !== null) {
+          openedCard.remove();
+        }
+
         window.card.renderCards(card);
+
+        var closeCard = document.querySelector('.popup__close');
+
+        closeCard.addEventListener('click', function () {
+          document.querySelector('.map__card').style.display = 'none';
+        });
+
+        document.addEventListener('keydown', function (evt) {
+          if (evt.key === 'Escape') {
+            document.querySelector('.map__card').style.display = 'none';
+          }
+        });
       });
     };
 
