@@ -45,10 +45,13 @@
 
   setDisabledElements(formFieldsetsElement);
   setDisabledElements(formSelectsElement);
+  setDisabledElements(guestOptions);
+  guestOptions[2].setAttribute('selected', 'selected')
+  guestOptions[2].removeAttribute('disabled', 'disabled');
 
   var roomGuestMatching = function () {
     setDisabledElements(guestOptions);
-    guestOptions[2].setAttribute('selected', 'selected');
+    guestOptions[2].removeAttribute('disabled', 'disabled');
 
     switch (roomNumberInputElement.value) {
       case '1':
@@ -64,6 +67,7 @@
         guestOptions[0].removeAttribute('disabled', 'disabled');
         break;
       default:
+        guestOptions[2].setAttribute('disabled', 'disabled');
         guestOptions[3].removeAttribute('disabled', 'disabled');
     }
   };
