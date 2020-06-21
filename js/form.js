@@ -46,7 +46,7 @@
   setDisabledElements(formFieldsetsElement);
   setDisabledElements(formSelectsElement);
   setDisabledElements(guestOptions);
-  guestOptions[2].setAttribute('selected', 'selected')
+  guestOptions[2].setAttribute('selected', 'selected');
   guestOptions[2].removeAttribute('disabled', 'disabled');
 
   var roomGuestMatching = function () {
