@@ -15,23 +15,23 @@
   //  var PRICE_MIN = 1000;
   //  var PRICE_MAX = 100000;
   //  var MIN_X_LOCATION = 0;
-  //var MIN_Y_LOCATION = 130;
+  //  var MIN_Y_LOCATION = 130;
   //  var MAX_X_LOCATION = 1200;
   //  var MAX_Y_LOCATION = 630;
   var OFFSET_X = 25;
   var OFFSET_Y = 70;
 
-  /*var getRandomValue = function (min, max) {
+  /*  var getRandomValue = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };*/
 
-  /*var getRandomArrayIndex = function (array) {
+  /*  var getRandomArrayIndex = function (array) {
     var randomIndex = Math.floor(Math.random() * array.length);
 
     return array[randomIndex];
   };*/
 
-  /*var getRandomFeatures = function (array) {
+  /*  var getRandomFeatures = function (array) {
     var randomFeatures = [];
     var randomLength = getRandomValue(1, FEATURES.length);
 
@@ -86,8 +86,7 @@
       wordRoom = 'комнаты';
     } else if (array.offer.rooms >= 5 || array.offer.rooms === 0) {
       wordRoom = 'комнат';
-      }
-      else {
+    } else {
       wordRoom = 'комната';
     }
 
@@ -144,9 +143,9 @@
   var advertsArray = [];
 
   var createAdverts = function (data) {
-    console.log(data);
+    //  console.log(data);
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i]);
+    //  console.log(data[i]);
 
       var locX = data[i].location.x;
       var locY = data[i].location.y;
@@ -177,9 +176,9 @@
     return advertsArray;
   };
 
-  console.log(advertsArray);
+  //  console.log(advertsArray);
 
-  window.loadData.load(createAdverts,window.loadData.showError);
+  window.loadData.load(createAdverts, window.loadData.showError);
 
   window.data = {
     createAdverts: createAdverts,

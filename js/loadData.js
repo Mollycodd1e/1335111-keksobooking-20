@@ -23,7 +23,7 @@
 
     xhr.open('GET', URL);
     xhr.send();
-  }
+  };
 
   var showError = function (errorMessage) {
     var node = document.createElement('div');
@@ -40,5 +40,5 @@
   window.loadData = {
     load: load,
     showError: showError
-  }
+  };
 })();

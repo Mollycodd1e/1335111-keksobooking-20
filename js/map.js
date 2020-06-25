@@ -71,7 +71,7 @@
     };
 
     var allPinElements = document.querySelectorAll('.map__pin--side');
-    console.log(window.data.advertsArray.length);
+
     for (var i = 0; i < window.data.advertsArray.length; i++) {
       showCardOnCLick(window.data.advertsArray[i], allPinElements[i]);
     }
