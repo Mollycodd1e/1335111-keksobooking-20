@@ -21,7 +21,7 @@
 
   var renderAdverts = function (count) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < count.length; i++) {
       fragment.appendChild(createPinElement(window.data.advertsArray[i])).classList.add('map__pin--side');
 
     }
@@ -41,7 +41,7 @@
     mapFiltersElement.classList.remove('map__filters--disabled');
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-    renderAdverts(window.data.OBJECT_COUNT);
+    renderAdverts(window.data.advertsArray);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
     mapPinMainElement.setAttribute('disabled', 'disabled');
@@ -72,7 +72,7 @@
 
     var allPinElements = document.querySelectorAll('.map__pin--side');
 
-    for (var i = 0; i < window.data.OBJECT_COUNT; i++) {
+    for (var i = 0; i < window.data.advertsArray.length; i++) {
       showCardOnCLick(window.data.createAdverts(window.data.OBJECT_COUNT)[i], allPinElements[i]);
     }
   };
