@@ -71,9 +71,9 @@
     };
 
     var allPinElements = document.querySelectorAll('.map__pin--side');
-
+    console.log(window.data.advertsArray.length);
     for (var i = 0; i < window.data.advertsArray.length; i++) {
-      showCardOnCLick(window.data.createAdverts(window.data.OBJECT_COUNT)[i], allPinElements[i]);
+      showCardOnCLick(window.data.advertsArray[i], allPinElements[i]);
     }
   };
 

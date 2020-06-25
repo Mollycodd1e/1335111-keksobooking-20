@@ -7,7 +7,7 @@
   //  var HOUSING_TYPE = ['palace', 'flat', 'house', 'bungalo'];
   //  var CHECK_IN = ['12:00', '13:00', '14:00'];
   //  var CHECK_OUT = ['12:00', '13:00', '14:00'];
-  var OBJECT_COUNT = 8;
+  //  var OBJECT_COUNT = 8;
   //  var NUMBERS_OF_ROOM_MIN = 1;
   //  var NUMBERS_OF_ROOM_MAX = 3;
   //  var NUMBERS_OF_GUESTS_MAX = 2;
@@ -183,7 +183,7 @@
 
   window.data = {
     createAdverts: createAdverts,
-    OBJECT_COUNT: OBJECT_COUNT,
+    //  OBJECT_COUNT: OBJECT_COUNT,
     FEATURES: FEATURES,
     advertsArray: advertsArray,
     getRoomType: getRoomType,
