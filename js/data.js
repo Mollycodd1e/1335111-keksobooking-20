@@ -1,25 +1,9 @@
 'use strict';
 
 (function () {
-  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  //  var IMAGES = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-  // 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-  //  var HOUSING_TYPE = ['palace', 'flat', 'house', 'bungalo'];
-  //  var CHECK_IN = ['12:00', '13:00', '14:00'];
-  //  var CHECK_OUT = ['12:00', '13:00', '14:00'];
-  //  var OBJECT_COUNT = 8;
-  //  var NUMBERS_OF_ROOM_MIN = 1;
-  //  var NUMBERS_OF_ROOM_MAX = 3;
-  //  var NUMBERS_OF_GUESTS_MAX = 2;
-  //  var NUMBERS_OF_GUESTS_MIN = 0;
-  //  var PRICE_MIN = 1000;
-  //  var PRICE_MAX = 100000;
-  //  var MIN_X_LOCATION = 0;
-  //  var MIN_Y_LOCATION = 130;
-  //  var MAX_X_LOCATION = 1200;
-  //  var MAX_Y_LOCATION = 630;
-  var OFFSET_X = 25;
-  var OFFSET_Y = 70;
+  //var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  //var OFFSET_X = 25;
+  //var OFFSET_Y = 70;
 
   /*  var getRandomValue = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -140,12 +124,11 @@
     }
   };
 
-  var advertsArray = [];
+  //var advertsArray = [];
 
-  var createAdverts = function (data) {
-    //  console.log(data);
+  /*var createAdverts = function (data) {
+
     for (var i = 0; i < data.length; i++) {
-    //  console.log(data[i]);
 
       var locX = data[i].location.x;
       var locY = data[i].location.y;
@@ -174,17 +157,14 @@
       });
     }
     return advertsArray;
-  };
+  };*/
 
-  //  console.log(advertsArray);
-
-  window.loadData.load(createAdverts, window.loadData.showError);
+  //window.loadData.load(arrdata, window.loadData.showError);
 
   window.data = {
-    createAdverts: createAdverts,
-    //  OBJECT_COUNT: OBJECT_COUNT,
-    FEATURES: FEATURES,
-    advertsArray: advertsArray,
+    //createAdverts: createAdverts,
+    //FEATURES: FEATURES,
+    //advertsArray: advertsArray,
     getRoomType: getRoomType,
     getWordRoom: getWordRoom,
     getWordGuest: getWordGuest,

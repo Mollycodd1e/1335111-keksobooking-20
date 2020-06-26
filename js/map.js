@@ -19,11 +19,13 @@
     return objectElement;
   };
 
-  var renderAdverts = function (count) {
+  //  var renderAdverts = function (adverts) {
+  var successHandler = function (adverts) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < count.length; i++) {
-      fragment.appendChild(createPinElement(window.data.advertsArray[i])).classList.add('map__pin--side');
-
+    for (var i = 0; i < adverts.length; i++) {
+      console.log(adverts[i]);
+      var nearbyAdverts = adverts[i];
+      fragment.appendChild(createPinElement(nearbyAdverts)).classList.add('map__pin--side');
     }
     mapListElement.appendChild(fragment);
   };
@@ -41,7 +43,8 @@
     mapFiltersElement.classList.remove('map__filters--disabled');
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-    renderAdverts(window.data.advertsArray);
+    //  renderAdverts(window.data.advertsArray);
+    window.loadData.load(successHandler, window.loadData.showError);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
     mapPinMainElement.setAttribute('disabled', 'disabled');
@@ -72,8 +75,9 @@
 
     var allPinElements = document.querySelectorAll('.map__pin--side');
 
-    for (var i = 0; i < window.data.advertsArray.length; i++) {
-      showCardOnCLick(window.data.advertsArray[i], allPinElements[i]);
+    for (var i = 0; i < allPinElements.length; i++) {
+
+      showCardOnCLick(mapListElement[i], allPinElements[i]);
     }
   };
 
