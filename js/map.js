@@ -23,7 +23,7 @@
   var successHandler = function (adverts) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < adverts.length; i++) {
-      console.log(adverts[i]);
+      //  console.log(adverts[i]);
       var nearbyAdverts = adverts[i];
       fragment.appendChild(createPinElement(nearbyAdverts)).classList.add('map__pin--side');
     }
@@ -56,9 +56,8 @@
         if (openedCard !== null) {
           openedCard.remove();
         }
-
+        //  console.log(1);
         window.card.renderCards(card);
-
         var closeCard = document.querySelector('.popup__close');
 
         closeCard.addEventListener('click', function () {

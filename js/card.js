@@ -17,7 +17,7 @@
 
     window.data.getFeatures(card, advertsCard);
 
-    for (var i = 0; i < window.data.FEATURES.length; i++) {
+    for (var i = 0; i < card.offer.features.length; i++) {
       if (advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).textContent === '') {
         advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).style.display = 'none';
       }

@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  //var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  //var OFFSET_X = 25;
-  //var OFFSET_Y = 70;
+  //  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  //  var OFFSET_X = 25;
+  //  var OFFSET_Y = 70;
 
   /*  var getRandomValue = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -90,7 +90,7 @@
     return wordGuest;
   };
 
-  var getFeatures = function (array, cardElement) {
+  /*  var getFeatures = function (array, cardElement) {
     var features = array.offer.features;
 
     for (var i = 0; i < features.length; i++) {
@@ -105,7 +105,7 @@
       }
       cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + randomFeature).textContent = randomFeature;
     }
-  };
+  };*/
 
   var addPhotoToCard = function (array, cardElement) {
     var photosArray = array.offer.photos;
@@ -124,9 +124,9 @@
     }
   };
 
-  //var advertsArray = [];
+  //  var advertsArray = [];
 
-  /*var createAdverts = function (data) {
+  /*  var createAdverts = function (data) {
 
     for (var i = 0; i < data.length; i++) {
 
@@ -159,16 +159,16 @@
     return advertsArray;
   };*/
 
-  //window.loadData.load(arrdata, window.loadData.showError);
+  //  window.loadData.load(arrdata, window.loadData.showError);
 
   window.data = {
-    //createAdverts: createAdverts,
-    //FEATURES: FEATURES,
-    //advertsArray: advertsArray,
+    //  createAdverts: createAdverts,
+    //  FEATURES: FEATURES,
+    //  advertsArray: advertsArray,
     getRoomType: getRoomType,
     getWordRoom: getWordRoom,
     getWordGuest: getWordGuest,
-    getFeatures: getFeatures,
+    //  getFeatures: getFeatures,
     addPhotoToCard: addPhotoToCard,
   };
 })();
