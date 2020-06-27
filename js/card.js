@@ -17,11 +17,11 @@
 
     window.data.getFeatures(card, advertsCard);
 
-    for (var i = 0; i < card.offer.features.length; i++) {
+    /*for (var i = 0; i < card.offer.features.length; i++) {
       if (advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).textContent === '') {
         advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).style.display = 'none';
       }
-    }
+    }*/
 
     advertsCard.querySelector('.popup__description').textContent = card.offer.description;
 

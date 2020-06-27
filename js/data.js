@@ -90,7 +90,7 @@
     return wordGuest;
   };
 
-  /*  var getFeatures = function (array, cardElement) {
+  /*var getFeatures = function (array, cardElement) {
     var features = array.offer.features;
 
     for (var i = 0; i < features.length; i++) {

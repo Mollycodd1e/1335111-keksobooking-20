@@ -18,18 +18,19 @@
 
     return objectElement;
   };
-
+  
   //  var renderAdverts = function (adverts) {
-  var successHandler = function (adverts) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < adverts.length; i++) {
-      //  console.log(adverts[i]);
-      var nearbyAdverts = adverts[i];
-      fragment.appendChild(createPinElement(nearbyAdverts)).classList.add('map__pin--side');
-    }
-    mapListElement.appendChild(fragment);
-  };
-
+    var successHandler = function (adverts) {
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < adverts.length; i++) {
+        //  console.log(adverts[i]);
+        //var nearbyAdverts = adverts[i];
+        fragment.appendChild(createPinElement(adverts[i])).classList.add('map__pin--side');
+        console.log(adverts[i]);
+      }
+      mapListElement.appendChild(fragment);      
+    };
+  
   var mapPinMainElement = document.querySelector('.map__pin--main');
   var adFormElement = document.querySelector('.ad-form');
   var formFieldsetsElement = adFormElement.children;
@@ -38,13 +39,16 @@
   var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
 
   var activeState = function () {
+    
+    console.log(mapListElement);
     window.map.mapElement.classList.remove('map--faded');
     adFormElement.classList.remove('ad-form--disabled');
     mapFiltersElement.classList.remove('map__filters--disabled');
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
     //  renderAdverts(window.data.advertsArray);
-    window.loadData.load(successHandler, window.loadData.showError);
+    window.loadData.load(successHandler(), window.loadData.showError);
+   
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
     mapPinMainElement.setAttribute('disabled', 'disabled');
@@ -52,11 +56,11 @@
     var showCardOnCLick = function (card, button) {
       button.addEventListener('click', function () {
         var openedCard = document.querySelector('.map__card');
-
+  
         if (openedCard !== null) {
           openedCard.remove();
         }
-        //  console.log(1);
+     
         window.card.renderCards(card);
         var closeCard = document.querySelector('.popup__close');
 
@@ -71,11 +75,9 @@
         });
       });
     };
-
-    var allPinElements = document.querySelectorAll('.map__pin--side');
-
+    
+    var allPinElements = mapListElement.querySelectorAll('.map__pin--side');
     for (var i = 0; i < allPinElements.length; i++) {
-
       showCardOnCLick(mapListElement[i], allPinElements[i]);
     }
   };
