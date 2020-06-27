@@ -47,7 +47,7 @@
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
     //  renderAdverts(window.data.advertsArray);
-    window.loadData.load(successHandler(), window.loadData.showError);
+    window.loadData.load(successHandler, window.loadData.showError);
    
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
