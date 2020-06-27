@@ -1,40 +1,7 @@
 'use strict';
 
 (function () {
-  //  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  //  var OFFSET_X = 25;
-  //  var OFFSET_Y = 70;
-
-  /*  var getRandomValue = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };*/
-
-  /*  var getRandomArrayIndex = function (array) {
-    var randomIndex = Math.floor(Math.random() * array.length);
-
-    return array[randomIndex];
-  };*/
-
-  /*  var getRandomFeatures = function (array) {
-    var randomFeatures = [];
-    var randomLength = getRandomValue(1, FEATURES.length);
-
-    for (var i = 0; i < randomLength; i++) {
-      var random = Math.floor(Math.random() * array.length);
-      var count = 0;
-
-      for (var j = 0; j < i; j++) {
-        if (randomFeatures[j] === array[random]) {
-          count = +1;
-        }
-      }
-
-      if (count < 1) {
-        randomFeatures.push(array[random]);
-      }
-    }
-    return randomFeatures;
-  };*/
+  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   var getRoomType = function (array) {
 
@@ -90,22 +57,13 @@
     return wordGuest;
   };
 
-  /*var getFeatures = function (array, cardElement) {
+  var addFeatures = function (array, cardElement) {
     var features = array.offer.features;
 
     for (var i = 0; i < features.length; i++) {
-
-      var randomFeature = '';
-
-      for (var j = 0; j < FEATURES.length; j++) {
-
-        if (features[i] === FEATURES[j]) {
-          randomFeature = FEATURES[j];
-        }
-      }
-      cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + randomFeature).textContent = randomFeature;
+      cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + features[i]).textContent = features[i];
     }
-  };*/
+  };
 
   var addPhotoToCard = function (array, cardElement) {
     var photosArray = array.offer.photos;
@@ -124,51 +82,12 @@
     }
   };
 
-  //  var advertsArray = [];
-
-  /*  var createAdverts = function (data) {
-
-    for (var i = 0; i < data.length; i++) {
-
-      var locX = data[i].location.x;
-      var locY = data[i].location.y;
-
-      advertsArray.push({
-        author: {
-          avatar: data[i].author.avatar
-        },
-        offer: {
-          title: data[i].offer.title,
-          address: (data[i].location.x + OFFSET_X) + ',' + (data[i].location.y + OFFSET_Y),
-          price: data[i].offer.price,
-          type: data[i].offer.type,
-          rooms: data[i].offer.rooms,
-          guests: data[i].offer.guests,
-          checkin: data[i].offer.checkin,
-          checkout: data[i].offer.checkout,
-          features: data[i].offer.features,
-          description: data[i].offer.description,
-          photos: data[i].offer.photos,
-        },
-        location: {
-          x: locX,
-          y: locY
-        }
-      });
-    }
-    return advertsArray;
-  };*/
-
-  //  window.loadData.load(arrdata, window.loadData.showError);
-
   window.data = {
-    //  createAdverts: createAdverts,
-    //  FEATURES: FEATURES,
-    //  advertsArray: advertsArray,
+    FEATURES: FEATURES,
     getRoomType: getRoomType,
     getWordRoom: getWordRoom,
     getWordGuest: getWordGuest,
-    //  getFeatures: getFeatures,
+    addFeatures: addFeatures,
     addPhotoToCard: addPhotoToCard,
   };
 })();

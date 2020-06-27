@@ -15,13 +15,13 @@
     card.offer.guests + ' ' + window.data.getWordGuest(card);
     advertsCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
 
-    window.data.getFeatures(card, advertsCard);
+    window.data.addFeatures(card, advertsCard);
 
-    /*for (var i = 0; i < card.offer.features.length; i++) {
+    for (var i = 0; i < window.data.FEATURES.length; i++) {
       if (advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).textContent === '') {
         advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).style.display = 'none';
       }
-    }*/
+    }
 
     advertsCard.querySelector('.popup__description').textContent = card.offer.description;
 

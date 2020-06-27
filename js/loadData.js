@@ -2,7 +2,7 @@
 
 (function () {
   var URLGET = 'https://javascript.pages.academy/keksobooking/data';
- //var URL = 'https://javascript.pages.academy/keksobooking';
+  // var URL = 'https://javascript.pages.academy/keksobooking';
 
   var StatusCode = {
     OK: 200
@@ -26,7 +26,7 @@
     xhr.send();
   };
 
-  /*var save = function (data, onLoad, onError) {
+  /*  var save = function (data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -56,7 +56,7 @@
   };
 
   window.loadData = {
-    //save: save,
+    //  save: save,
     load: load,
     showError: showError
   };
