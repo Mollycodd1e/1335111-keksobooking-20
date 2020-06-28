@@ -101,7 +101,6 @@
     }
   });
 
-
   var housingTypeMatching = function () {
     var housingType = housingTypeElement.value;
 
@@ -146,6 +145,58 @@
   };
 
   timeFormElement.addEventListener('change', timeMatching);
+
+  var deactivateState = function () {
+    window.map.mapElement.classList.add('map--faded');
+    adFormElement.classList.add('ad-form--disabled');
+    mapFiltersElement.classList.add('map__filters--disabled');
+    adFormElement.reset();
+    priceInputElement.setAttribute('placeholder', '1000');
+    setDisabledElements(formFieldsetsElement);
+    setDisabledElements(formSelectsElement);
+    mapPinMainElement.removeAttribute('disabled', 'disabled');
+    var deletePinElement = document.querySelectorAll('.map__pin--side');
+
+    for (var i = 0; i < deletePinElement.length; i++) {
+      deletePinElement[i].remove();
+    }
+
+    var openedCard = document.querySelector('.map__card');
+
+    if (openedCard) {
+      openedCard.remove();
+    }
+  };
+
+  var successMessage = document.querySelector('#success').content.querySelector('.success');
+  var main = document.querySelector('main');
+
+  var submitHandler = function (evt) {
+    evt.preventDefault();
+    window.loadData.save(new FormData(adFormElement), function () {
+      deactivateState();
+      var message = successMessage.cloneNode(true);
+      main.insertBefore(message, main.firstChild);
+
+      document.addEventListener('click', function () {
+        message.remove();
+      });
+
+      document.addEventListener('keydown', function (evtBoard) {
+        if (evtBoard.key === 'Escape') {
+          message.remove();
+        }
+      });
+    }, window.loadData.errorHandler);
+  };
+
+  adFormElement.addEventListener('submit', submitHandler);
+
+  var cleanButton = adFormElement.querySelector('.ad-form__reset');
+
+  cleanButton.addEventListener('click', function () {
+    adFormElement.reset();
+  });
 
   window.form = {
     removeDisabledElements: removeDisabledElements,

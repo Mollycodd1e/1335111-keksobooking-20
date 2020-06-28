@@ -2,7 +2,7 @@
 
 (function () {
   var URLGET = 'https://javascript.pages.academy/keksobooking/data';
-  // var URL = 'https://javascript.pages.academy/keksobooking';
+  var URL = 'https://javascript.pages.academy/keksobooking';
 
   var StatusCode = {
     OK: 200
@@ -26,7 +26,7 @@
     xhr.send();
   };
 
-  /*  var save = function (data, onLoad, onError) {
+  var save = function (data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -41,23 +41,32 @@
 
     xhr.open('POST', URL);
     xhr.send(data);
-  };*/
+  };
 
-  var showError = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
+  var errorHandler = function () {
+    var main = document.querySelector('main');
+    var error = document.querySelector('#error').content.querySelector('.error');
+    main.insertBefore(error, main.firstChild);
+    var closeErrorButton = error.querySelector('.error__button');
 
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    closeErrorButton.addEventListener('click', function () {
+      error.remove();
+    });
+
+    document.addEventListener('click', function () {
+      error.remove();
+    });
+
+    document.addEventListener('keydown', function (evtBoard) {
+      if (evtBoard.key === 'Escape') {
+        error.remove();
+      }
+    });
   };
 
   window.loadData = {
-    //  save: save,
+    save: save,
     load: load,
-    showError: showError
+    errorHandler: errorHandler
   };
 })();
