@@ -199,6 +199,6 @@
   });
 
   window.form = {
-    removeDisabledElements: removeDisabledElements,
+    removeDisabledElements: removeDisabledElements
   };
 })();

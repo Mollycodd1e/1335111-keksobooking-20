@@ -48,7 +48,7 @@
     window.loadData.load(successHandler, window.loadData.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
-    //mapPinMainElement.setAttribute('disabled', 'disabled');
+    mapPinMainElement.setAttribute('disabled', 'disabled');
     window.move.movePin();
   };
 
@@ -90,8 +90,6 @@
       activateState();
     }
   });
-
-
 
   window.map = {
     mapElement: mapElement,
