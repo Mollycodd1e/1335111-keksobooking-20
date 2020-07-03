@@ -15,7 +15,7 @@
     card.offer.guests + ' ' + window.data.getWordGuest(card);
     advertsCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
 
-    window.data.getFeatures(card, advertsCard);
+    window.data.addFeatures(card, advertsCard);
 
     for (var i = 0; i < window.data.FEATURES.length; i++) {
       if (advertsCard.querySelector('.popup__features').querySelector('.popup__feature--' + window.data.FEATURES[i]).textContent === '') {
