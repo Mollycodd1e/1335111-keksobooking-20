@@ -21,44 +21,45 @@
     return objectElement;
   };
 
-  var filterFormElement = document.querySelector('.map__filters');    
+  var filterFormElement = document.querySelector('.map__filters');
   var housingFilterElement = filterFormElement.querySelector('#housing-type');
 
   var advertsArray = [];
-  
+
   var updateAdverts = function (adverts) {
     var fragment = document.createDocumentFragment();
-    
+
     housingFilterElement.addEventListener('change', function () {
       var pinsElement = Array.from(document.querySelectorAll('.map__pin--side'));
       var popup = document.querySelector('.popup');
 
-      popup.style.display = 'none';
-      
-      if (pinsElement !== null ) {
-        for (var i = 0; i < pinsElement.length; i++ ) {
+      if (popup !== null) {
+        popup.style.display = 'none';
+      }
+
+      if (pinsElement !== null) {
+        for (var i = 0; i < pinsElement.length; i++) {
           pinsElement[i].remove();
         }
-      };
+      }
 
       var filterArray = adverts.filter(function (it) {
         if (housingFilterElement.value === 'any') {
-          return filterArray = adverts;
+          return adverts;
         } else {
           return it.offer.type === housingFilterElement.value;
         }
       });
 
-      var lengthOfArray = filterArray.slice(0,5).length;
+      var lengthOfArray = filterArray.slice(0, 5).length;
 
-      for (var i = 0; i < lengthOfArray; i++) {
-        fragment.appendChild(createPinElement(filterArray[i], i)).classList.add('map__pin--side');
-        advertsArray.push(filterArray[i]);
+      for (var j = 0; j < lengthOfArray; j++) {
+        fragment.appendChild(createPinElement(filterArray[j], j)).classList.add('map__pin--side');
+        advertsArray.push(filterArray[j]);
       }
-      
       mapListElement.appendChild(fragment);
     });
-   
+
     return advertsArray;
   };
 
@@ -69,9 +70,9 @@
       fragment.appendChild(createPinElement(data[i], i)).classList.add('map__pin--side');
       advertsArray.push(data[i]);
     }
-    
+
     mapListElement.appendChild(fragment);
-  
+
     updateAdverts(data);
   };
 
