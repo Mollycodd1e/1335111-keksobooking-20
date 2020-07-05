@@ -2,7 +2,7 @@
 
 (function () {
   var URLGET = 'https://javascript.pages.academy/keksobooking/data';
-  var URL = 'https://javascript.pages.academy/keksobooking1';
+  var URL = 'https://javascript.pages.academy/keksobooking';
 
   var StatusCode = {
     OK: 200
