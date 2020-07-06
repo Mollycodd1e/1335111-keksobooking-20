@@ -50,21 +50,23 @@
   var errorHandler = function () {
     var main = document.querySelector('main');
     var error = document.querySelector('#error').content.querySelector('.error');
-    main.insertBefore(error, main.firstChild);
-
+    //main.insertBefore(error, main.firstChild);
+    var errorClone = error.cloneNode(true);
+    main.append(errorClone);
+    
     var closeErrorButton = error.querySelector('.error__button');
 
     closeErrorButton.addEventListener('click', function () {
-      error.remove();
+      errorClone.remove();
     });
 
     document.addEventListener('click', function () {
-      error.remove();
+      errorClone.remove();
     });
 
     document.addEventListener('keydown', function (evtBoard) {
       if (evtBoard.key === 'Escape') {
-        error.remove();
+        errorClone.remove();
       }
     });
   };

@@ -21,59 +21,19 @@
     return objectElement;
   };
 
-  var filterFormElement = document.querySelector('.map__filters');
-  var housingFilterElement = filterFormElement.querySelector('#housing-type');
-
   var advertsArray = [];
-
-  var updateAdverts = function (adverts) {
-    var fragment = document.createDocumentFragment();
-
-    housingFilterElement.addEventListener('change', function () {
-      var pinsElement = Array.from(document.querySelectorAll('.map__pin--side'));
-      var popup = document.querySelector('.popup');
-
-      if (popup !== null) {
-        popup.style.display = 'none';
-      }
-
-      if (pinsElement !== null) {
-        for (var i = 0; i < pinsElement.length; i++) {
-          pinsElement[i].remove();
-        }
-      }
-
-      var filterArray = adverts.filter(function (it) {
-        if (housingFilterElement.value === 'any') {
-          return adverts;
-        } else {
-          return it.offer.type === housingFilterElement.value;
-        }
-      });
-
-      var lengthOfArray = filterArray.slice(0, 5).length;
-
-      for (var j = 0; j < lengthOfArray; j++) {
-        fragment.appendChild(createPinElement(filterArray[j], j)).classList.add('map__pin--side');
-        advertsArray.push(filterArray[j]);
-      }
-      mapListElement.appendChild(fragment);
-    });
-
-    return advertsArray;
-  };
 
   var successHandler = function (data) {
     var fragment = document.createDocumentFragment();
+
+    window.filter.updateAdverts(data);
 
     for (var i = 0; i < MAX_DISPLAYED_ADVERTS; i++) {
       fragment.appendChild(createPinElement(data[i], i)).classList.add('map__pin--side');
       advertsArray.push(data[i]);
     }
 
-    mapListElement.appendChild(fragment);
-
-    updateAdverts(data);
+    mapListElement.appendChild(fragment);    
   };
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
@@ -92,8 +52,9 @@
     window.loadData.load(successHandler, window.loadData.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
-    mapPinMainElement.setAttribute('disabled', 'disabled');
-    window.move.movePin();
+    //mapPinMainElement.setAttribute('disabled', 'disabled');
+    //window.move.movePin();
+    mapPinMainElement.addEventListener('mousedown', window.move.movePin());
   };
 
   mapListElement.addEventListener('click', function (evt) {
@@ -106,7 +67,7 @@
       if (openedCard !== null) {
         openedCard.remove();
       }
-
+      
       window.card.renderCards(advertsArray[numPin]);
 
       var closeCard = document.querySelector('.popup__close');
@@ -139,6 +100,7 @@
     mapElement: mapElement,
     MAIN_PIN_X_LOCATION: MAIN_PIN_X_LOCATION,
     MAIN_PIN_Y_LOCATION: MAIN_PIN_Y_LOCATION,
-    advertsArray: advertsArray
+    advertsArray: advertsArray,
+    createPinElement: createPinElement
   };
 })();
