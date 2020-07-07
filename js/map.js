@@ -33,7 +33,7 @@
       advertsArray.push(data[i]);
     }
 
-    mapListElement.appendChild(fragment);    
+    mapListElement.appendChild(fragment);
   };
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
@@ -52,8 +52,6 @@
     window.loadData.load(successHandler, window.loadData.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
-    //mapPinMainElement.setAttribute('disabled', 'disabled');
-    //window.move.movePin();
     mapPinMainElement.addEventListener('mousedown', window.move.movePin());
   };
 
@@ -67,8 +65,8 @@
       if (openedCard !== null) {
         openedCard.remove();
       }
-      
-      window.card.renderCards(advertsArray[numPin]);
+
+      window.card.renderCards(window.map.advertsArray[numPin]);
 
       var closeCard = document.querySelector('.popup__close');
 

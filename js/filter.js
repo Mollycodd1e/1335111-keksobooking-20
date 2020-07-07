@@ -1,5 +1,7 @@
+'use strict';
+
 (function () {
-var updateAdverts = function (adverts) {
+  var updateAdverts = function (adverts) {
     var filterFormElement = document.querySelector('.map__filters');
     var housingFilterElement = filterFormElement.querySelector('#housing-type');
     var mapElement = document.querySelector('.map');
@@ -20,7 +22,6 @@ var updateAdverts = function (adverts) {
         }
       }
 
-
       var filterArray = adverts.filter(function (it) {
         if (housingFilterElement.value === 'any') {
           return adverts;
@@ -31,10 +32,13 @@ var updateAdverts = function (adverts) {
 
       var lengthOfArray = filterArray.slice(0, 5).length;
 
+      window.map.advertsArray = [];
+
       for (var j = 0; j < lengthOfArray; j++) {
         fragment.appendChild(window.map.createPinElement(filterArray[j], j)).classList.add('map__pin--side');
         window.map.advertsArray.push(filterArray[j]);
       }
+
       mapListElement.appendChild(fragment);
     });
     return window.map.advertsArray;
@@ -42,7 +46,7 @@ var updateAdverts = function (adverts) {
 
   window.filter = {
     updateAdverts: updateAdverts
-  }
+  };
 })();
 
 

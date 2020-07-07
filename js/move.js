@@ -6,7 +6,7 @@
     var mapPinMainElement = document.querySelector('.map__pin--main');
     var adFormElement = document.querySelector('.ad-form');
     var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
-    
+
     mapPinMainElement.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
@@ -18,27 +18,24 @@
       var MAX_Y = 630;
       var MIN_Y = 130;
       var SHARP_END = 22;
-      var pinCenter = 62 / 2; //width = border + padding + img.width;
+      var pinCenter = 62 / 2;
 
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
-        
+
         var map = document.querySelector('.map__pins');
-        var mapWidth = map.offsetWidth; 
-        
+        var mapWidth = map.offsetWidth;
+
         var dragged = true;
 
         var shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
         };
-        
+
         startCoords.x = moveEvt.clientX;
         startCoords.y = moveEvt.clientY;
 
-        console.log(startCoords.y);
-        console.log(moveEvt.clientY)
-        console.log(mapPinMainElement.offsetTop)
         mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + 'px';
         mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + 'px';
 
