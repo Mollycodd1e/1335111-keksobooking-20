@@ -12,10 +12,17 @@
       y: evt.clientY
     };
 
+    var MAIN_PIN = {
+      width: 62,
+      height: 62,
+      tail: 22
+    };
+
     var MAX_Y = 630;
     var MIN_Y = 130;
-    var SHARP_END = 22;
-    var pinCenter = 62 / 2;
+    var pinCenter = MAIN_PIN.width / 2;
+    var minCoordianteY = MIN_Y - MAIN_PIN.height - MAIN_PIN.tail;
+    var maxCoordinateY = MAX_Y - MAIN_PIN.height - MAIN_PIN.tail;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
@@ -35,20 +42,20 @@
       mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + 'px';
       mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + 'px';
 
-      if (dragged && mapPinMainElement.offsetTop < (MIN_Y - pinCenter)) {
-        mapPinMainElement.style.top = MIN_Y - pinCenter + 'px';
+      if (dragged && (mapPinMainElement.offsetTop - shift.y) < (minCoordianteY)) {
+        mapPinMainElement.style.top = minCoordianteY + 'px';
       }
-      if (dragged && mapPinMainElement.offsetTop > MAX_Y) {
-        mapPinMainElement.style.top = MAX_Y + 'px';
+      if (dragged && (mapPinMainElement.offsetTop - shift.y) > maxCoordinateY) {
+        mapPinMainElement.style.top = maxCoordinateY + 'px';
       }
-      if (dragged && mapPinMainElement.offsetLeft < (-pinCenter)) {
+      if (dragged && (mapPinMainElement.offsetLeft - shift.x) < (-pinCenter)) {
         mapPinMainElement.style.left = (-pinCenter) + 'px';
       }
-      if (dragged && mapPinMainElement.offsetLeft > (mapWidth - pinCenter)) {
+      if (dragged && (mapPinMainElement.offsetLeft - shift.x) > (mapWidth - pinCenter)) {
         mapPinMainElement.style.left = (mapWidth - pinCenter) + 'px';
       }
 
-      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + pinCenter + SHARP_END) + 'px';
+      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
 
       adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
       (sharpLocY);
@@ -57,7 +64,7 @@
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + pinCenter + SHARP_END) + 'px';
+      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
 
       adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
       (sharpLocY);
@@ -69,7 +76,6 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-
 
   window.move = {
     movePin: movePin
