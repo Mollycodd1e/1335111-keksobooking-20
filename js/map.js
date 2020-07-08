@@ -52,7 +52,7 @@
     window.loadData.load(successHandler, window.loadData.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
-    mapPinMainElement.addEventListener('mousedown', window.move.movePin());
+    mapPinMainElement.addEventListener('mousedown', window.move.movePin);
   };
 
   mapListElement.addEventListener('click', function (evt) {
