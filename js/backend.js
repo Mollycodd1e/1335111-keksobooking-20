@@ -2,7 +2,7 @@
 
 (function () {
   var URLGET = 'https://javascript.pages.academy/keksobooking/data';
-  var URL = 'https://javascript.pages.academy/keksobooking1';
+  var URL = 'https://javascript.pages.academy/keksobooking';
 
   var StatusCode = {
     OK: 200
@@ -48,23 +48,24 @@
   };
 
   var errorHandler = function () {
-    var main = document.querySelector('main');
-    var error = document.querySelector('#error').content.querySelector('.error');
-    main.insertBefore(error, main.firstChild);
+    var mainElement = document.querySelector('main');
+    var errorElement = document.querySelector('#error').content.querySelector('.error');
+    var errorClone = errorElement.cloneNode(true);
+    mainElement.append(errorClone);
 
-    var closeErrorButton = error.querySelector('.error__button');
+    var closeErrorButton = errorElement.querySelector('.error__button');
 
     closeErrorButton.addEventListener('click', function () {
-      error.remove();
+      errorClone.remove();
     });
 
     document.addEventListener('click', function () {
-      error.remove();
+      errorClone.remove();
     });
 
     document.addEventListener('keydown', function (evtBoard) {
       if (evtBoard.key === 'Escape') {
-        error.remove();
+        errorClone.remove();
       }
     });
   };

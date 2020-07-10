@@ -4,6 +4,7 @@
   var MAIN_PIN_X_LOCATION = 601;
   var MAIN_PIN_Y_LOCATION = 406;
   var MAIN_PIN_Y_OFFSET = 53;
+  var MAX_DISPLAYED_ADVERTS = 5;
 
   var mapElement = document.querySelector('.map');
   var mapListElement = mapElement.querySelector('.map__pins');
@@ -22,14 +23,17 @@
 
   var advertsArray = [];
 
-  var successHandler = function (adverts) {
+  var successHandler = function (data) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < adverts.length; i++) {
-      fragment.appendChild(createPinElement(adverts[i], i)).classList.add('map__pin--side');
-      advertsArray.push(adverts[i]);
+
+    window.filter.updateAdverts(data);
+
+    for (var i = 0; i < MAX_DISPLAYED_ADVERTS; i++) {
+      fragment.appendChild(createPinElement(data[i], i)).classList.add('map__pin--side');
+      advertsArray.push(data[i]);
     }
+
     mapListElement.appendChild(fragment);
-    return advertsArray;
   };
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
@@ -48,26 +52,25 @@
     window.loadData.load(successHandler, window.loadData.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
-    mapPinMainElement.setAttribute('disabled', 'disabled');
-    window.move.movePin();
+    mapPinMainElement.addEventListener('mousedown', window.move.movePin);
   };
 
   mapListElement.addEventListener('click', function (evt) {
     var target = evt.target;
     var numPin = target.parentElement.dataset.numPin;
-    var openedCard = document.querySelector('.map__card');
+    var openedCardElement = document.querySelector('.map__card');
 
     if (numPin) {
 
-      if (openedCard !== null) {
-        openedCard.remove();
+      if (openedCardElement !== null) {
+        openedCardElement.remove();
       }
 
-      window.card.renderCards(advertsArray[numPin]);
+      window.card.renderCards(window.map.advertsArray[numPin]);
 
-      var closeCard = document.querySelector('.popup__close');
+      var closeCardElement = document.querySelector('.popup__close');
 
-      closeCard.addEventListener('click', function () {
+      closeCardElement.addEventListener('click', function () {
         document.querySelector('.map__card').style.display = 'none';
       });
 
@@ -94,6 +97,8 @@
   window.map = {
     mapElement: mapElement,
     MAIN_PIN_X_LOCATION: MAIN_PIN_X_LOCATION,
-    MAIN_PIN_Y_LOCATION: MAIN_PIN_Y_LOCATION
+    MAIN_PIN_Y_LOCATION: MAIN_PIN_Y_LOCATION,
+    advertsArray: advertsArray,
+    createPinElement: createPinElement
   };
 })();

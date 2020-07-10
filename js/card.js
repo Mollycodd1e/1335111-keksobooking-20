@@ -39,5 +39,6 @@
 
   window.card = {
     renderCards: renderCards,
+    cardElement: cardElement
   };
 })();

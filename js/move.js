@@ -2,71 +2,79 @@
 
 (function () {
 
-  var movePin = function () {
+  var movePin = function (evt) {
     var mapPinMainElement = document.querySelector('.map__pin--main');
     var adFormElement = document.querySelector('.ad-form');
     var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
 
-    mapPinMainElement.addEventListener('mousedown', function (evt) {
-      evt.preventDefault();
+    var startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
 
-      var startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
+    var MAIN_PIN = {
+      width: 62,
+      height: 62,
+      tail: 22
+    };
+
+    var MAX_Y = 630;
+    var MIN_Y = 130;
+    var pinCenter = MAIN_PIN.width / 2;
+    var minCoordianteY = MIN_Y - MAIN_PIN.height - MAIN_PIN.tail;
+    var maxCoordinateY = MAX_Y - MAIN_PIN.height - MAIN_PIN.tail;
+
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      var mapElement = document.querySelector('.map__pins');
+      var mapWidth = mapElement.offsetWidth;
+      var dragged = true;
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY
       };
 
-      var onMouseMove = function (moveEvt) {
-        moveEvt.preventDefault();
+      startCoords.x = moveEvt.clientX;
+      startCoords.y = moveEvt.clientY;
 
-        var dragged = true;
+      mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + 'px';
+      mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + 'px';
 
-        var shift = {
-          x: startCoords.x - moveEvt.clientX,
-          y: startCoords.y - moveEvt.clientY
-        };
+      if (dragged && (mapPinMainElement.offsetTop - shift.y) < (minCoordianteY)) {
+        mapPinMainElement.style.top = minCoordianteY + 'px';
+      }
+      if (dragged && (mapPinMainElement.offsetTop - shift.y) > maxCoordinateY) {
+        mapPinMainElement.style.top = maxCoordinateY + 'px';
+      }
+      if (dragged && (mapPinMainElement.offsetLeft - shift.x) < (-pinCenter)) {
+        mapPinMainElement.style.left = (-pinCenter) + 'px';
+      }
+      if (dragged && (mapPinMainElement.offsetLeft - shift.x) > (mapWidth - pinCenter)) {
+        mapPinMainElement.style.left = (mapWidth - pinCenter) + 'px';
+      }
 
-        startCoords = {
-          x: moveEvt.clientX,
-          y: moveEvt.clientY
-        };
+      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
 
-        mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + 'px';
-        mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + 'px';
+      adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
+      (sharpLocY);
+    };
 
-        if (dragged && mapPinMainElement.offsetTop < 99) {
-          mapPinMainElement.style.top = 99 + 'px';
-        }
-        if (dragged && mapPinMainElement.offsetTop > 630) {
-          mapPinMainElement.style.top = 630 + 'px';
-        }
-        if (dragged && mapPinMainElement.offsetLeft < -31) {
-          mapPinMainElement.style.left = -31 + 'px';
-        }
-        if (dragged && mapPinMainElement.offsetLeft > 1169) {
-          mapPinMainElement.style.left = 1169 + 'px';
-        }
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
 
-        var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + 53) + 'px';
+      var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
 
-        adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
-        (sharpLocY);
-      };
+      adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
+      (sharpLocY);
 
-      var onMouseUp = function (upEvt) {
-        upEvt.preventDefault();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
 
-        var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + 53) + 'px';
-
-        adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
-        (sharpLocY);
-
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-      };
-
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   };
 
   window.move = {
