@@ -27,8 +27,8 @@
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var map = document.querySelector('.map__pins');
-      var mapWidth = map.offsetWidth;
+      var mapElement = document.querySelector('.map__pins');
+      var mapWidth = mapElement.offsetWidth;
       var dragged = true;
 
       var shift = {

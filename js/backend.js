@@ -48,12 +48,12 @@
   };
 
   var errorHandler = function () {
-    var main = document.querySelector('main');
-    var error = document.querySelector('#error').content.querySelector('.error');
-    var errorClone = error.cloneNode(true);
-    main.append(errorClone);
+    var mainElement = document.querySelector('main');
+    var errorElement = document.querySelector('#error').content.querySelector('.error');
+    var errorClone = errorElement.cloneNode(true);
+    mainElement.append(errorClone);
 
-    var closeErrorButton = error.querySelector('.error__button');
+    var closeErrorButton = errorElement.querySelector('.error__button');
 
     closeErrorButton.addEventListener('click', function () {
       errorClone.remove();

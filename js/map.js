@@ -58,19 +58,19 @@
   mapListElement.addEventListener('click', function (evt) {
     var target = evt.target;
     var numPin = target.parentElement.dataset.numPin;
-    var openedCard = document.querySelector('.map__card');
+    var openedCardElement = document.querySelector('.map__card');
 
     if (numPin) {
 
-      if (openedCard !== null) {
-        openedCard.remove();
+      if (openedCardElement !== null) {
+        openedCardElement.remove();
       }
 
       window.card.renderCards(window.map.advertsArray[numPin]);
 
-      var closeCard = document.querySelector('.popup__close');
+      var closeCardElement = document.querySelector('.popup__close');
 
-      closeCard.addEventListener('click', function () {
+      closeCardElement.addEventListener('click', function () {
         document.querySelector('.map__card').style.display = 'none';
       });
 
