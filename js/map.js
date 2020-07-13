@@ -83,13 +83,13 @@
   });
 
   mapPinMainElement.addEventListener('mousedown', function (mouseButton) {
-    if (mouseButton.button === 0) {
+    if (mouseButton.button === 0 && window.map.mapElement.classList.contains('map--faded')) {
       activateState();
     }
   });
 
   mapPinMainElement.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
+    if (evt.key === 'Enter' && window.map.mapElement.classList.contains('map--faded')) {
       activateState();
     }
   });

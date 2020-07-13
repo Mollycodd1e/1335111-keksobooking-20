@@ -3,7 +3,7 @@
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-  var UserPhotoChooserElement = document.querySelector('.ad-form-header__input');
+  var userPhotoChooserElement = document.querySelector('.ad-form-header__input');
   var userPreviewElement = document.querySelector('.ad-form-header__preview img');
   var housePhotoChooserElement = document.querySelector('.ad-form__input');
   var housePreviewElement = document.querySelector('.ad-form__photo');
@@ -27,8 +27,8 @@
     }
   };
 
-  UserPhotoChooserElement.addEventListener('change', function () {
-    photoChooser(UserPhotoChooserElement, userPreviewElement);
+  userPhotoChooserElement.addEventListener('change', function () {
+    photoChooser(userPhotoChooserElement, userPreviewElement);
   });
 
   housePhotoChooserElement.addEventListener('change', function () {
