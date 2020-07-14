@@ -71,7 +71,6 @@
     }
 
     photosArray.forEach(function (element, i) {
-      console.log(photosArray.length)
       if (i >= 1) {
         var addImage = '<img src=' + element + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
         cardElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', addImage);
