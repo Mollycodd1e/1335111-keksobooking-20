@@ -27,9 +27,11 @@
   var housePreviewElement = document.querySelector('.ad-form__photo');
 
   var removeSelectedElements = function (options) {
-    for (var i = 0; i < options.length; i++) {
-      options[i].removeAttribute('selected', 'selected');
-    }
+    var newArray = Array.from(options);
+
+    newArray.forEach(function (element) {
+      element.removeAttribute('selected', 'selected');
+    });
   };
 
   removeSelectedElements(roomOptions);
@@ -40,15 +42,19 @@
   mapFiltersElement.classList.add('map__filters--disabled');
 
   var setDisabledElements = function (elements) {
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].setAttribute('disabled', 'disabled');
-    }
+    var newArray = Array.from(elements);
+
+    newArray.forEach(function (element) {
+      element.setAttribute('disabled', 'disabled');
+    });
   };
 
   var removeDisabledElements = function (elements) {
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute('disabled', 'disabled');
-    }
+    var newArray = Array.from(elements);
+
+    newArray.forEach(function (element) {
+      element.removeAttribute('disabled', 'disabled');
+    });
   };
 
   setDisabledElements(formFieldsetsElement);
