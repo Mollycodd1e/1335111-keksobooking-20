@@ -164,15 +164,16 @@
     var deletePinElement = document.querySelectorAll('.map__pin--side');
     adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
     userPreviewElement.src = 'img/muffin-grey.svg';
-    var cleanArray = Array.from(housePreviewElement.querySelectorAll('img'));
+    var cleanPhotoArray = Array.from(housePreviewElement.querySelectorAll('img'));
 
-    for (var j = 0; j < cleanArray.length; j++) {
-      cleanArray[j].remove();
-    }
+    var resetArray = function (array) {
+      array.forEach(function (element) {
+        element.remove();
+      });
+    };
 
-    for (var i = 0; i < deletePinElement.length; i++) {
-      deletePinElement[i].remove();
-    }
+    resetArray(cleanPhotoArray);
+    resetArray(deletePinElement);
 
     var openedCard = document.querySelector('.map__card');
 
