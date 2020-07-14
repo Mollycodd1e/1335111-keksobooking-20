@@ -46,13 +46,7 @@
 
   var getWordGuest = function (array) {
 
-    var wordGuest = '';
-
-    if (array.offer.guests === 1) {
-      wordGuest = 'гостя';
-    } else {
-      wordGuest = 'гостей';
-    }
+    var wordGuest = array.offer.guests === 1 ? 'гостя' : 'гостей';
 
     return wordGuest;
   };
