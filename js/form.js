@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_CENTER_LOCATION_X = 570;
+  var MAIN_PIN_CENTER_LOCATION_Y = 375;
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
   var adFormElement = document.querySelector('.ad-form');
@@ -17,6 +19,8 @@
   var timeInInputElement = adFormElement.querySelector('#timein');
   var timeOutInputElement = adFormElement.querySelector('#timeout');
   var timeFormElement = document.querySelector('.ad-form__element--time');
+  var userPreviewElement = document.querySelector('.ad-form-header__preview img');
+  var housePreviewElement = document.querySelector('.ad-form__photo');
 
   var removeSelectedElements = function (options) {
     for (var i = 0; i < options.length; i++) {
@@ -155,11 +159,21 @@
     setDisabledElements(formFieldsetsElement);
     setDisabledElements(formSelectsElement);
     mapPinMainElement.removeAttribute('disabled', 'disabled');
+    mapPinMainElement.style.top = MAIN_PIN_CENTER_LOCATION_Y + 'px';
+    mapPinMainElement.style.left = MAIN_PIN_CENTER_LOCATION_X + 'px';
     var deletePinElement = document.querySelectorAll('.map__pin--side');
+    adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
+    userPreviewElement.src = 'img/muffin-grey.svg';
+    var cleanPhotoArray = Array.from(housePreviewElement.querySelectorAll('img'));
 
-    for (var i = 0; i < deletePinElement.length; i++) {
-      deletePinElement[i].remove();
-    }
+    var resetArray = function (array) {
+      array.forEach(function (element) {
+        element.remove();
+      });
+    };
+
+    resetArray(cleanPhotoArray);
+    resetArray(deletePinElement);
 
     var openedCard = document.querySelector('.map__card');
 
@@ -196,6 +210,14 @@
 
   cleanButton.addEventListener('click', function () {
     adFormElement.reset();
+    deactivateState();
+  });
+
+  cleanButton.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      adFormElement.reset();
+      deactivateState();
+    }
   });
 
   window.form = {
