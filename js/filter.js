@@ -2,6 +2,14 @@
 
 (function () {
   var updateAdverts = function (adverts) {
+    var MIN_MIDDLE_PRICE_VALUE = 10000;
+    var MAX_MIDDLE_PRICE_VALUE = 50000;
+    var MIN_ROOMS_NUMBER = 1;
+    var MID_ROOMS_NUMBER = 2;
+    var MAX_ROOMS_NUMBER = 3;
+    var MIN_GUEST_NUMBER = 0;
+    var MID_GUEST_NUMBER = 1;
+    var MAX_GUEST_NUMBER = 2;
     var filterFormElement = document.querySelector('.map__filters');
     var housingFilterElement = filterFormElement.querySelector('#housing-type');
     var priceFilterElement = filterFormElement.querySelector('#housing-price');
@@ -38,11 +46,11 @@
         if (priceFilterElement.value === 'any') {
           return typeArray;
         } else if (priceFilterElement.value === 'middle') {
-          return (it.offer.price >= 10000 && it.offer.price <= 50000);
+          return (it.offer.price >= MIN_MIDDLE_PRICE_VALUE && it.offer.price <= MAX_MIDDLE_PRICE_VALUE);
         } else if (priceFilterElement.value === 'low') {
-          return (it.offer.price < 10000);
+          return (it.offer.price < MIN_MIDDLE_PRICE_VALUE);
         } else {
-          return (it.offer.price > 50000);
+          return (it.offer.price > MAX_MIDDLE_PRICE_VALUE);
         }
       });
 
@@ -50,11 +58,11 @@
         if (roomsFilterElement.value === 'any') {
           return priceArray;
         } else if (roomsFilterElement.value === '1') {
-          return it.offer.rooms === 1;
+          return it.offer.rooms === MIN_ROOMS_NUMBER;
         } else if (roomsFilterElement.value === '2') {
-          return it.offer.rooms === 2;
+          return it.offer.rooms === MID_ROOMS_NUMBER;
         } else {
-          return it.offer.rooms === 3;
+          return it.offer.rooms === MAX_ROOMS_NUMBER;
         }
       });
 
@@ -62,11 +70,11 @@
         if (guestsFilterElement.value === 'any') {
           return roomsArray;
         } else if (guestsFilterElement.value === '1') {
-          return it.offer.guests === 1;
+          return it.offer.guests === MID_GUEST_NUMBER;
         } else if (guestsFilterElement.value === '2') {
-          return it.offer.guests === 2;
+          return it.offer.guests === MAX_GUEST_NUMBER;
         } else {
-          return it.offer.guests === 0;
+          return it.offer.guests === MIN_GUEST_NUMBER;
         }
       });
 

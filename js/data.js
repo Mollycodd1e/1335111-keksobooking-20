@@ -2,6 +2,10 @@
 
 (function () {
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  var MAX_WORD_ROOMS_NUMBER = 5;
+  var MIN_WORD_ROOMS_NUMBER = 1;
+  var ZERO_WORD_ROOMS_NUMBER = 0;
+  var WORD_GUEST_NUMBER = 1;
 
   var getRoomType = function (array) {
 
@@ -33,9 +37,9 @@
 
     var wordRoom = '';
 
-    if (array.offer.rooms > 1 && array.offer.rooms < 5) {
+    if (array.offer.rooms > MIN_WORD_ROOMS_NUMBER && array.offer.rooms < MAX_WORD_ROOMS_NUMBER) {
       wordRoom = 'комнаты';
-    } else if (array.offer.rooms >= 5 || array.offer.rooms === 0) {
+    } else if (array.offer.rooms >= MAX_WORD_ROOMS_NUMBER || array.offer.rooms === ZERO_WORD_ROOMS_NUMBER) {
       wordRoom = 'комнат';
     } else {
       wordRoom = 'комната';
@@ -46,7 +50,7 @@
 
   var getWordGuest = function (array) {
 
-    var wordGuest = array.offer.guests === 1 ? 'гостя' : 'гостей';
+    var wordGuest = array.offer.guests === WORD_GUEST_NUMBER ? 'гостя' : 'гостей';
 
     return wordGuest;
   };
@@ -54,9 +58,9 @@
   var addFeatures = function (array, cardElement) {
     var features = array.offer.features;
 
-    for (var i = 0; i < features.length; i++) {
-      cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + features[i]).textContent = features[i];
-    }
+    features.forEach(function (element) {
+      cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).textContent = element;
+    });
   };
 
   var addPhotoToCard = function (array, cardElement) {
@@ -66,14 +70,14 @@
       cardElement.querySelector('.popup__photos').querySelector('.popup__photo').alt = 'Нет фото';
     }
 
-    for (var i = 0; i < photosArray.length; i++) {
-      if (i >= 1) {
-        var addImage = '<img src=' + photosArray[i] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+    photosArray.forEach(function (element) {
+      if (photosArray.length >= 1) {
+        var addImage = '<img src=' + element + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
         cardElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', addImage);
       } else {
-        cardElement.querySelector('.popup__photos').querySelector('.popup__photo').src = photosArray[i];
+        cardElement.querySelector('.popup__photos').querySelector('.popup__photo').src = element;
       }
-    }
+    });
   };
 
   window.data = {

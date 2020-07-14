@@ -3,6 +3,10 @@
 (function () {
   var MAIN_PIN_CENTER_LOCATION_X = 570;
   var MAIN_PIN_CENTER_LOCATION_Y = 375;
+  var MIN_FLAT_PRICE = 1000;
+  var MIN_BUNGALO_PRICE = 0;
+  var MIN_HOUSE_PRICE = 5000;
+  var MIN_PALACE_PRICE = 10000;
 
   var mapPinMainElement = document.querySelector('.map__pin--main');
   var adFormElement = document.querySelector('.ad-form');
@@ -111,23 +115,23 @@
     switch (housingType) {
       case 'flat':
         housingType = 'Квартира';
-        priceInputElement.setAttribute('placeholder', '1000');
-        priceInputElement.min = '1000';
+        priceInputElement.setAttribute('placeholder', MIN_FLAT_PRICE);
+        priceInputElement.min = MIN_FLAT_PRICE;
         break;
       case 'bungalo':
         housingType = 'Бунгало';
-        priceInputElement.setAttribute('placeholder', '0');
-        priceInputElement.min = '0';
+        priceInputElement.setAttribute('placeholder', MIN_BUNGALO_PRICE);
+        priceInputElement.min = MIN_BUNGALO_PRICE;
         break;
       case 'house':
         housingType = 'Дом';
-        priceInputElement.setAttribute('placeholder', '5000');
-        priceInputElement.min = '5000';
+        priceInputElement.setAttribute('placeholder', MIN_HOUSE_PRICE);
+        priceInputElement.min = MIN_HOUSE_PRICE;
         break;
       case 'palace':
         housingType = 'Дворец';
-        priceInputElement.setAttribute('placeholder', '10000');
-        priceInputElement.min = '10000';
+        priceInputElement.setAttribute('placeholder', MIN_PALACE_PRICE);
+        priceInputElement.min = MIN_PALACE_PRICE;
         break;
     }
   };
@@ -155,7 +159,7 @@
     adFormElement.classList.add('ad-form--disabled');
     mapFiltersElement.classList.add('map__filters--disabled');
     adFormElement.reset();
-    priceInputElement.setAttribute('placeholder', '1000');
+    priceInputElement.setAttribute('placeholder', MIN_FLAT_PRICE);
     setDisabledElements(formFieldsetsElement);
     setDisabledElements(formSelectsElement);
     mapPinMainElement.removeAttribute('disabled', 'disabled');
