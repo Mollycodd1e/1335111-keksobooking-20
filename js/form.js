@@ -8,6 +8,20 @@
   var MIN_HOUSE_PRICE = 5000;
   var MIN_PALACE_PRICE = 10000;
 
+  var capacityValue = {
+    none: 0,
+    one: 1,
+    two: 2,
+    three: 3
+  };
+
+  var roomsValue = {
+    one: 1,
+    two: 2,
+    three: 3,
+    oneHundred: 100
+  };
+
   var mapPinMainElement = document.querySelector('.map__pin--main');
   var adFormElement = document.querySelector('.ad-form');
   var formFieldsetsElement = adFormElement.children;
@@ -90,13 +104,16 @@
   mapPinMainElement.addEventListener('click', roomGuestMatching);
 
   roomNumberInputElement.addEventListener('change', function () {
-    if (roomNumberInputElement.value === '1' && guestNumberInputElement.value !== '1') {
+    if ((roomNumberInputElement.value === '' + roomsValue.one) && (guestNumberInputElement.value !== '' + capacityValue.one)) {
       guestNumberInputElement.setCustomValidity('Только для 1 гостя');
-    } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '1' && guestNumberInputElement.value !== '2') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.two) &&
+      (guestNumberInputElement.value !== '' + capacityValue.one) && (guestNumberInputElement.value !== '' + capacityValue.two)) {
       guestNumberInputElement.setCustomValidity('Только для 1 или 2 гостей');
-    } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value === '0') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.three) &&
+      (guestNumberInputElement.value === '' + capacityValue.none)) {
       guestNumberInputElement.setCustomValidity('Только для 1,2 или 3 гостей');
-    } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value !== '0') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.oneHundred) &&
+      (guestNumberInputElement.value !== '' + capacityValue.none)) {
       guestNumberInputElement.setCustomValidity('Не для гостей');
     } else {
       guestNumberInputElement.setCustomValidity('');
@@ -104,13 +121,18 @@
   });
 
   guestNumberInputElement.addEventListener('change', function () {
-    if (roomNumberInputElement.value === '1' && guestNumberInputElement.value === '1') {
+    if ((roomNumberInputElement.value === '' + roomsValue.one) &&
+      (guestNumberInputElement.value === '' + capacityValue.one)) {
       guestNumberInputElement.setCustomValidity('');
-    } else if (roomNumberInputElement.value === '2' && guestNumberInputElement.value !== '0' && guestNumberInputElement.value !== '3') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.two) &&
+      (guestNumberInputElement.value !== '' + capacityValue.none) &&
+      (guestNumberInputElement.value !== '' + capacityValue.three)) {
       guestNumberInputElement.setCustomValidity('');
-    } else if (roomNumberInputElement.value === '3' && guestNumberInputElement.value !== '0') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.three) &&
+      (guestNumberInputElement.value !== '' + capacityValue.none)) {
       guestNumberInputElement.setCustomValidity('');
-    } else if (roomNumberInputElement.value === '100' && guestNumberInputElement.value === '0') {
+    } else if ((roomNumberInputElement.value === '' + roomsValue.oneHundred) &&
+      (guestNumberInputElement.value === '' + capacityValue.none)) {
       guestNumberInputElement.setCustomValidity('');
     }
   });

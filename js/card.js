@@ -17,7 +17,7 @@
 
     window.data.addFeatures(card, advertsCardElement);
 
-    window.data.FEATURES.forEach(function (element) {
+    window.data.featuresList.forEach(function (element) {
       if (advertsCardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).textContent === '') {
         advertsCardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).style.display = 'none';
       }

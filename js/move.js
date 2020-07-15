@@ -3,6 +3,16 @@
 (function () {
 
   var movePin = function (evt) {
+
+    var MAX_Y = 630;
+    var MIN_Y = 130;
+
+    var MAIN_PIN = {
+      width: 62,
+      height: 62,
+      tail: 22
+    };
+
     var mapPinMainElement = document.querySelector('.map__pin--main');
     var adFormElement = document.querySelector('.ad-form');
     var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
@@ -12,14 +22,6 @@
       y: evt.clientY
     };
 
-    var MAIN_PIN = {
-      width: 62,
-      height: 62,
-      tail: 22
-    };
-
-    var MAX_Y = 630;
-    var MIN_Y = 130;
     var pinCenter = MAIN_PIN.width / 2;
     var minCoordianteY = MIN_Y - MAIN_PIN.height - MAIN_PIN.tail;
     var maxCoordinateY = MAX_Y - MAIN_PIN.height - MAIN_PIN.tail;

@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var MAX_WORD_ROOMS_NUMBER = 5;
   var MIN_WORD_ROOMS_NUMBER = 1;
   var ZERO_WORD_ROOMS_NUMBER = 0;
   var WORD_GUEST_NUMBER = 1;
+  var featuresList = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   var getRoomType = function (array) {
 
@@ -81,7 +81,7 @@
   };
 
   window.data = {
-    FEATURES: FEATURES,
+    featuresList: featuresList,
     getRoomType: getRoomType,
     getWordRoom: getWordRoom,
     getWordGuest: getWordGuest,
