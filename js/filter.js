@@ -2,6 +2,7 @@
 
 (function () {
   var updateAdverts = function (adverts) {
+    var MAX_VISIBLE_ADVERTS = 5;
     var MIN_MIDDLE_PRICE_VALUE = 10000;
     var MAX_MIDDLE_PRICE_VALUE = 50000;
     var MIN_ROOMS_NUMBER = 1;
@@ -91,31 +92,79 @@
         }
       });
 
-      var featuresArray = guestsArray.filter(function (it) {
+      var wifiArray = guestsArray.filter(function (it) {
         if (featuresFormElement.querySelector('#filter-wifi').checked) {
           return it.offer.features.includes('wifi');
-        } else if (featuresFormElement.querySelector('#filter-dishwasher').checked) {
-          return it.offer.features.includes('dishwasher');
-        } else if (featuresFormElement.querySelector('#filter-parking').checked) {
-          return it.offer.features.includes('parking');
-        } else if (featuresFormElement.querySelector('#filter-washer').checked) {
-          return it.offer.features.includes('washer');
-        } else if (featuresFormElement.querySelector('#filter-elevator').checked) {
-          return it.offer.features.includes('elevator');
-        } else if (featuresFormElement.querySelector('#filter-conditioner').checked) {
-          return it.offer.features.includes('conditioner');
         } else {
           return guestsArray;
         }
       });
 
-      var lengthOfArray = featuresArray.slice(0, 5).length;
+      var dishwasherArray = wifiArray.filter(function (it) {
+        if (featuresFormElement.querySelector('#filter-dishwasher').checked) {
+          return it.offer.features.includes('dishwasher');
+        } else {
+          return wifiArray;
+        }
+      });
+
+      var parkingArray = dishwasherArray.filter(function (it) {
+        if (featuresFormElement.querySelector('#filter-parking').checked) {
+          return it.offer.features.includes('parking');
+        } else {
+          return dishwasherArray;
+        }
+      });
+
+      var washerArray = parkingArray.filter(function (it) {
+        if (featuresFormElement.querySelector('#filter-washer').checked) {
+          return it.offer.features.includes('washer');
+        } else {
+          return parkingArray;
+        }
+      });
+
+      var elevatorArray = washerArray.filter(function (it) {
+        if (featuresFormElement.querySelector('#filter-elevator').checked) {
+          return it.offer.features.includes('elevator');
+        } else {
+          return washerArray;
+        }
+      });
+
+      var featuresArray = elevatorArray.filter(function (it) {
+        if (featuresFormElement.querySelector('#filter-parking').checked) {
+          return it.offer.features.includes('parking');
+        } else {
+          return elevatorArray;
+        }
+      });
+
+      //  var featuresArray = guestsArray.filter(function (it) {
+      //    if (featuresFormElement.querySelector('#filter-wifi').checked) {
+      //      return it.offer.features.includes('wifi');
+      //    } if (featuresFormElement.querySelector('#filter-dishwasher').checked) {
+      //      return it.offer.features.includes('dishwasher');
+      //    } else if (featuresFormElement.querySelector('#filter-parking').checked) {
+      //      return it.offer.features.includes('parking');
+      //    } else if (featuresFormElement.querySelector('#filter-washer').checked) {
+      //      return it.offer.features.includes('washer');
+      //    } else if (featuresFormElement.querySelector('#filter-elevator').checked) {
+      //      return it.offer.features.includes('elevator');
+      //    } else if (featuresFormElement.querySelector('#filter-conditioner').checked) {
+      //      return it.offer.features.includes('conditioner');
+      //    } else {
+      //      return guestsArray;
+      //    }
+      //  });
+
+      var lengthOfArray = featuresArray.slice(0, MAX_VISIBLE_ADVERTS).length;
 
       window.map.advertsArray = [];
 
-      for (var j = 0; j < lengthOfArray; j++) {
-        fragment.appendChild(window.map.createPinElement(featuresArray[j], j)).classList.add('map__pin--side');
-        window.map.advertsArray.push(featuresArray[j]);
+      for (var i = 0; i < lengthOfArray; i++) {
+        fragment.appendChild(window.map.createPinElement(featuresArray[i], i)).classList.add('map__pin--side');
+        window.map.advertsArray.push(featuresArray[i]);
       }
 
       mapListElement.appendChild(fragment);

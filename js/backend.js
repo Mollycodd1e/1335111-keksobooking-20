@@ -54,9 +54,9 @@
     var errorClone = errorElement.cloneNode(true);
     mainElement.append(errorClone);
 
-    var closeErrorButton = errorElement.querySelector('.error__button');
+    var closeErrorButtonElement = errorElement.querySelector('.error__button');
 
-    closeErrorButton.addEventListener('click', function () {
+    closeErrorButtonElement.addEventListener('click', function () {
       errorClone.remove();
     });
 
@@ -71,7 +71,7 @@
     });
   };
 
-  window.loadData = {
+  window.backend = {
     save: save,
     load: load,
     errorHandler: errorHandler

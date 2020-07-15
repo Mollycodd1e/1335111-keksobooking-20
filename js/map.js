@@ -9,6 +9,12 @@
   var mapElement = document.querySelector('.map');
   var mapListElement = mapElement.querySelector('.map__pins');
   var pinElement = document.querySelector('#pin').content.querySelector('.map__pin');
+  var mapPinMainElement = document.querySelector('.map__pin--main');
+  var adFormElement = document.querySelector('.ad-form');
+  var formFieldsetsElement = adFormElement.children;
+  var mapFiltersElement = document.querySelector('.map__filters');
+  var formSelectsElement = mapFiltersElement.children;
+  var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
 
   var createPinElement = function (array, index) {
     var objectElement = pinElement.cloneNode(true);
@@ -36,28 +42,26 @@
     mapListElement.appendChild(fragment);
   };
 
-  var mapPinMainElement = document.querySelector('.map__pin--main');
-  var adFormElement = document.querySelector('.ad-form');
-  var formFieldsetsElement = adFormElement.children;
-  var mapFiltersElement = document.querySelector('.map__filters');
-  var formSelectsElement = mapFiltersElement.children;
-  var adFormAddressElement = adFormElement.querySelector('input[name="address"]');
-
   var activateState = function () {
     window.map.mapElement.classList.remove('map--faded');
     adFormElement.classList.remove('ad-form--disabled');
     mapFiltersElement.classList.remove('map__filters--disabled');
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
-    window.loadData.load(successHandler, window.loadData.errorHandler);
+    window.backend.load(successHandler, window.backend.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
     mapPinMainElement.addEventListener('mousedown', window.move.movePin);
   };
 
-  mapListElement.addEventListener('click', function (evt) {
+  var openCard = function (evt) {
     var target = evt.target;
     var numPin = target.parentElement.dataset.numPin;
+
+    if (evt.key === 'Enter') {
+      numPin = target.dataset.numPin;
+    }
+
     var openedCardElement = document.querySelector('.map__card');
 
     if (numPin) {
@@ -79,6 +83,16 @@
           document.querySelector('.map__card').style.display = 'none';
         }
       });
+    }
+  };
+
+  mapListElement.addEventListener('click', function (evt) {
+    openCard(evt);
+  });
+
+  mapListElement.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      openCard(evt);
     }
   });
 

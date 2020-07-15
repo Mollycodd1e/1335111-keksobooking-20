@@ -186,6 +186,7 @@
     window.map.mapElement.classList.add('map--faded');
     adFormElement.classList.add('ad-form--disabled');
     mapFiltersElement.classList.add('map__filters--disabled');
+    mapFiltersElement.reset();
     adFormElement.reset();
     priceInputElement.setAttribute('placeholder', MIN_FLAT_PRICE);
     setDisabledElements(formFieldsetsElement);
@@ -207,45 +208,45 @@
     resetArray(cleanPhotoArray);
     resetArray(deletePinElement);
 
-    var openedCard = document.querySelector('.map__card');
+    var openedCardElement = document.querySelector('.map__card');
 
-    if (openedCard) {
-      openedCard.remove();
+    if (openedCardElement) {
+      openedCardElement.remove();
     }
   };
 
-  var successMessage = document.querySelector('#success').content.querySelector('.success');
-  var main = document.querySelector('main');
+  var successMessageElement = document.querySelector('#success').content.querySelector('.success');
+  var mainElement = document.querySelector('main');
 
   var submitHandler = function (evt) {
     evt.preventDefault();
-    window.loadData.save(new FormData(adFormElement), function () {
+    window.backend.save(new FormData(adFormElement), function () {
       deactivateState();
-      var message = successMessage.cloneNode(true);
-      main.insertBefore(message, main.firstChild);
+      var messageElement = successMessageElement.cloneNode(true);
+      mainElement.insertBefore(messageElement, mainElement.firstChild);
 
       document.addEventListener('click', function () {
-        message.remove();
+        messageElement.remove();
       });
 
       document.addEventListener('keydown', function (evtBoard) {
         if (evtBoard.key === 'Escape') {
-          message.remove();
+          messageElement.remove();
         }
       });
-    }, window.loadData.errorHandler);
+    }, window.backend.errorHandler);
   };
 
   adFormElement.addEventListener('submit', submitHandler);
 
-  var cleanButton = adFormElement.querySelector('.ad-form__reset');
+  var cleanButtonElement = adFormElement.querySelector('.ad-form__reset');
 
-  cleanButton.addEventListener('click', function () {
+  cleanButtonElement.addEventListener('click', function () {
     adFormElement.reset();
     deactivateState();
   });
 
-  cleanButton.addEventListener('keydown', function (evt) {
+  cleanButtonElement.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       adFormElement.reset();
       deactivateState();
