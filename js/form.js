@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var MAIN_PIN_CENTER_LOCATION_X = 570;
-  var MAIN_PIN_CENTER_LOCATION_Y = 375;
+  var MAIN_PIN_LOCATION_X = 570;
+  var MAIN_PIN_LOCATION_Y = 375;
   var MIN_FLAT_PRICE = 1000;
   var MIN_BUNGALO_PRICE = 0;
   var MIN_HOUSE_PRICE = 5000;
@@ -51,7 +51,7 @@
   removeSelectedElements(roomOptions);
   removeSelectedElements(guestOptions);
 
-  adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
+  adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION_CENTER + 'px';
 
   mapFiltersElement.classList.add('map__filters--disabled');
 
@@ -192,10 +192,10 @@
     setDisabledElements(formFieldsetsElement);
     setDisabledElements(formSelectsElement);
     mapPinMainElement.removeAttribute('disabled', 'disabled');
-    mapPinMainElement.style.top = MAIN_PIN_CENTER_LOCATION_Y + 'px';
-    mapPinMainElement.style.left = MAIN_PIN_CENTER_LOCATION_X + 'px';
+    mapPinMainElement.style.top = MAIN_PIN_LOCATION_Y + 'px';
+    mapPinMainElement.style.left = MAIN_PIN_LOCATION_X + 'px';
     var deletePinElement = document.querySelectorAll('.map__pin--side');
-    adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION + 'px';
+    adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION_CENTER + 'px';
     userPreviewElement.src = 'img/muffin-grey.svg';
     var cleanPhotoArray = Array.from(housePreviewElement.querySelectorAll('img'));
 

@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
-  var cardElement = document.querySelector('#card').content.querySelector('.popup');
+  var popup = document.querySelector('#card').content.querySelector('.popup');
 
   var getAdvertCardPopup = function (card) {
-    var advertsCardElement = cardElement.cloneNode(true);
+    var advertsCardElement = popup.cloneNode(true);
 
     advertsCardElement.querySelector('.popup__avatar').src = card.author.avatar;
     advertsCardElement.querySelector('.popup__title').textContent = card.offer.title;
@@ -30,15 +30,14 @@
     return advertsCardElement;
   };
 
-  var renderCards = function (card) {
+  var render = function (card) {
     var fragment = document.createDocumentFragment();
     fragment.appendChild(getAdvertCardPopup(card));
 
     window.map.mapElement.insertBefore(fragment, window.map.mapElement.querySelector('.map__filters-container'));
   };
 
-  window.card = {
-    renderCards: renderCards,
-    cardElement: cardElement
+  window.popup = {
+    render: render
   };
 })();

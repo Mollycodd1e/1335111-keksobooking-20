@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var MAIN_PIN_X_LOCATION = 601;
-  var MAIN_PIN_Y_LOCATION = 406;
+  var MAIN_PIN_X_LOCATION_CENTER = 601;
+  var MAIN_PIN_Y_LOCATION_CENTER = 406;
   var MAIN_PIN_Y_OFFSET = 53;
   var MAX_DISPLAYED_ADVERTS = 5;
 
@@ -46,8 +46,8 @@
     window.map.mapElement.classList.remove('map--faded');
     adFormElement.classList.remove('ad-form--disabled');
     mapFiltersElement.classList.remove('map__filters--disabled');
-    adFormAddressElement.value = (MAIN_PIN_X_LOCATION + 'px') + ' ' +
-    (MAIN_PIN_Y_LOCATION + MAIN_PIN_Y_OFFSET + 'px');
+    adFormAddressElement.value = (MAIN_PIN_X_LOCATION_CENTER + 'px') + ' ' +
+    (MAIN_PIN_Y_LOCATION_CENTER + MAIN_PIN_Y_OFFSET + 'px');
     window.backend.load(successHandler, window.backend.errorHandler);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
@@ -70,7 +70,7 @@
         openedCardElement.remove();
       }
 
-      window.card.renderCards(window.map.advertsArray[numPin]);
+      window.popup.render(window.map.advertsArray[numPin]);
 
       var closeCardElement = document.querySelector('.popup__close');
 
@@ -110,8 +110,8 @@
 
   window.map = {
     mapElement: mapElement,
-    MAIN_PIN_X_LOCATION: MAIN_PIN_X_LOCATION,
-    MAIN_PIN_Y_LOCATION: MAIN_PIN_Y_LOCATION,
+    MAIN_PIN_X_LOCATION_CENTER: MAIN_PIN_X_LOCATION_CENTER,
+    MAIN_PIN_Y_LOCATION_CENTER: MAIN_PIN_Y_LOCATION_CENTER,
     advertsArray: advertsArray,
     createPinElement: createPinElement
   };

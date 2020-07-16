@@ -58,8 +58,9 @@
       }
 
       var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
+      var sharpLocX = (parseInt(mapPinMainElement.style.left, 10) + pinCenter) + 'px';
 
-      adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
+      adFormAddressElement.value = (sharpLocX) + ' ' +
       (sharpLocY);
     };
 
@@ -67,8 +68,9 @@
       upEvt.preventDefault();
 
       var sharpLocY = (parseInt(mapPinMainElement.style.top, 10) + MAIN_PIN.height + MAIN_PIN.tail) + 'px';
+      var sharpLocX = (parseInt(mapPinMainElement.style.left, 10) + pinCenter) + 'px';
 
-      adFormAddressElement.value = (mapPinMainElement.style.left) + ' ' +
+      adFormAddressElement.value = (sharpLocX) + ' ' +
       (sharpLocY);
 
       document.removeEventListener('mousemove', onMouseMove);
