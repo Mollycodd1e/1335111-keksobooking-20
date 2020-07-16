@@ -3,12 +3,12 @@
 (function () {
   var TIMEOUT_IN_MS = 10000;
 
+  var URLGET = 'https://javascript.pages.academy/keksobooking/data';
+  var URL = 'https://javascript.pages.academy/keksobooking';
+
   var StatusCode = {
     OK: 200
   };
-
-  var URLGET = 'https://javascript.pages.academy/keksobooking/data';
-  var URL = 'https://javascript.pages.academy/keksobooking';
 
   var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();

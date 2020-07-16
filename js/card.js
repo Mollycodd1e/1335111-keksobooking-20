@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
-  var popup = document.querySelector('#card').content.querySelector('.popup');
+  var popupElement = document.querySelector('#card').content.querySelector('.popup');
 
   var getAdvertCardPopup = function (card) {
-    var advertsCardElement = popup.cloneNode(true);
+    var advertsCardElement = popupElement.cloneNode(true);
 
     advertsCardElement.querySelector('.popup__avatar').src = card.author.avatar;
     advertsCardElement.querySelector('.popup__title').textContent = card.offer.title;
