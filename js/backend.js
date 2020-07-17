@@ -74,7 +74,7 @@
 
     document.addEventListener('click', onScreenClick);
 
-    document.addEventListener('keydown', onScreenPressEsc); 
+    document.addEventListener('keydown', onScreenPressEsc);
   };
 
   window.backend = {

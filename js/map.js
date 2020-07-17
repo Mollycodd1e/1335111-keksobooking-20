@@ -33,9 +33,9 @@
     var fragment = document.createDocumentFragment();
 
     window.filter.updateAdverts(data);
-    
+
     window.map.advertsArray = [];
-    
+
     for (var i = 0; i < MAX_DISPLAYED_ADVERTS; i++) {
       fragment.appendChild(createPinElement(data[i], i)).classList.add('map__pin--side');
       window.map.advertsArray.push(data[i]);
@@ -120,7 +120,7 @@
     }
   };
   mapPinMainElement.addEventListener('keydown', onMainPinPressEnter);
-  
+
   window.map = {
     advertsArray: advertsArray,
     createPinElement: createPinElement

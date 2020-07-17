@@ -5,7 +5,7 @@
   var MIN_WORD_ROOMS_NUMBER = 1;
   var ZERO_WORD_ROOMS_NUMBER = 0;
   var WORD_GUEST_NUMBER = 1;
-  
+
   var getRoomType = function (array) {
 
     var roomType = '';

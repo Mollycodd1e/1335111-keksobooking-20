@@ -104,7 +104,6 @@
   };
 
   roomNumberInputElement.addEventListener('change', onRoomNumberInputChange);
-  //mapPinMainElement.addEventListener('click', roomGuestMatching);
 
   var onRoomNumberInputSubmit = function () {
     if ((roomNumberInputElement.value === '' + roomsValue.one) && (guestNumberInputElement.value !== '' + capacityValue.one)) {
@@ -123,7 +122,7 @@
     }
   };
 
-  roomNumberInputElement.addEventListener('change',onRoomNumberInputSubmit);
+  roomNumberInputElement.addEventListener('change', onRoomNumberInputSubmit);
 
   var onGuestNumberInputSubmit = function () {
     if ((roomNumberInputElement.value === '' + roomsValue.one) &&
@@ -145,7 +144,7 @@
   guestNumberInputElement.addEventListener('change', onGuestNumberInputSubmit);
 
   priceInputElement.setAttribute('placeholder', MIN_FLAT_PRICE);
-  
+
   var onHouseTypeChange = function () {
     var housingType = housingTypeElement.value;
 
@@ -173,7 +172,6 @@
     }
   };
 
-  //mapPinMainElement.addEventListener('click', housingTypeMatching);
   housingTypeElement.addEventListener('change', onHouseTypeChange);
 
   var onTimeInOutChange = function (evt) {
@@ -227,7 +225,7 @@
     housingTypeElement.removeEventListener('change', onHouseTypeChange);
     guestNumberInputElement.removeEventListener('change', onGuestNumberInputSubmit);
     roomNumberInputElement.removeEventListener('change', onRoomNumberInputChange);
-    roomNumberInputElement.removeEventListener('change',onRoomNumberInputSubmit);
+    roomNumberInputElement.removeEventListener('change', onRoomNumberInputSubmit);
     adFormElement.removeEventListener('submit', onFormSubmit);
   };
 

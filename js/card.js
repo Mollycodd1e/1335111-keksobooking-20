@@ -4,7 +4,7 @@
   var featuresList = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   var popupElement = document.querySelector('#card').content.querySelector('.popup');
-  
+
   var getAdvertCardPopup = function (card) {
     var advertsCardElement = popupElement.cloneNode(true);
     var featuresElement = advertsCardElement.querySelector('.popup__features');
