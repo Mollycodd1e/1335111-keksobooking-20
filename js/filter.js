@@ -9,7 +9,7 @@
     var mapListElement = mapElement.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
 
-    filterFormElement.addEventListener('change', window.debounce(function () {
+    var onFilterFormElementChange = function () {
       var pinsElement = Array.from(document.querySelectorAll('.map__pin--side'));
       var popupElement = document.querySelector('.popup');
 
@@ -88,14 +88,12 @@
       }
 
       mapListElement.appendChild(fragment);
-    }));
+    };
 
-    return window.map.advertsArray;
+    filterFormElement.addEventListener('change', window.debounce(onFilterFormElementChange));
   };
 
   window.filter = {
     updateAdverts: updateAdverts
   };
 })();
-
-

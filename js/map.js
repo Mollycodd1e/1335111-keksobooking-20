@@ -29,26 +29,28 @@
 
   var advertsArray = [];
 
-  var successHandler = function (data) {
+  var onDataLoadSuccess = function (data) {
     var fragment = document.createDocumentFragment();
 
     window.filter.updateAdverts(data);
-
+    
+    window.map.advertsArray = [];
+    
     for (var i = 0; i < MAX_DISPLAYED_ADVERTS; i++) {
       fragment.appendChild(createPinElement(data[i], i)).classList.add('map__pin--side');
-      advertsArray.push(data[i]);
+      window.map.advertsArray.push(data[i]);
     }
 
     mapListElement.appendChild(fragment);
   };
 
   var activateState = function () {
-    window.map.mapElement.classList.remove('map--faded');
+    mapElement.classList.remove('map--faded');
     adFormElement.classList.remove('ad-form--disabled');
     mapFiltersElement.classList.remove('map__filters--disabled');
     adFormAddressElement.value = (MAIN_PIN_X_LOCATION_CENTER + 'px') + ' ' +
     (MAIN_PIN_Y_LOCATION_CENTER + MAIN_PIN_Y_OFFSET + 'px');
-    window.backend.load(successHandler, window.backend.errorHandler);
+    window.backend.load(onDataLoadSuccess, window.backend.onDataError);
     window.form.removeDisabledElements(formFieldsetsElement);
     window.form.removeDisabledElements(formSelectsElement);
     mapPinMainElement.addEventListener('mousedown', window.move.movePin);
@@ -74,44 +76,52 @@
 
       var closeCardElement = document.querySelector('.popup__close');
 
-      closeCardElement.addEventListener('click', function () {
+      var onCloseBUttonClick = function () {
         document.querySelector('.map__card').style.display = 'none';
-      });
+      };
 
-      document.addEventListener('keydown', function (evtBoard) {
+      closeCardElement.addEventListener('click', onCloseBUttonClick);
+
+      var onScreenPressEsc = function (evtBoard) {
         if (evtBoard.key === 'Escape') {
           document.querySelector('.map__card').style.display = 'none';
         }
-      });
+      };
+
+      document.addEventListener('keydown', onScreenPressEsc);
     }
   };
 
-  mapListElement.addEventListener('click', function (evt) {
+  var onPinsElementClick = function (evt) {
     openCard(evt);
-  });
+  };
 
-  mapListElement.addEventListener('keydown', function (evt) {
+  var onPinsElementPressEnter = function (evt) {
     if (evt.key === 'Enter') {
       openCard(evt);
     }
-  });
+  };
 
-  mapPinMainElement.addEventListener('mousedown', function (mouseButton) {
-    if (mouseButton.button === 0 && window.map.mapElement.classList.contains('map--faded')) {
+  mapListElement.addEventListener('click', onPinsElementClick);
+
+  mapListElement.addEventListener('keydown', onPinsElementPressEnter);
+
+  var onMainPinLeftClick = function (mouseButton) {
+    if (mouseButton.button === 0 && mapElement.classList.contains('map--faded')) {
       activateState();
     }
-  });
+  };
 
-  mapPinMainElement.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter' && window.map.mapElement.classList.contains('map--faded')) {
+  mapPinMainElement.addEventListener('mousedown', onMainPinLeftClick);
+
+  var onMainPinPressEnter = function (evt) {
+    if (evt.key === 'Enter' && mapElement.classList.contains('map--faded')) {
       activateState();
     }
-  });
-
+  };
+  mapPinMainElement.addEventListener('keydown', onMainPinPressEnter);
+  
   window.map = {
-    mapElement: mapElement,
-    MAIN_PIN_X_LOCATION_CENTER: MAIN_PIN_X_LOCATION_CENTER,
-    MAIN_PIN_Y_LOCATION_CENTER: MAIN_PIN_Y_LOCATION_CENTER,
     advertsArray: advertsArray,
     createPinElement: createPinElement
   };

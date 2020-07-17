@@ -3,6 +3,8 @@
 (function () {
   var MAIN_PIN_LOCATION_X = 570;
   var MAIN_PIN_LOCATION_Y = 375;
+  var MAIN_PIN_X_LOCATION_CENTER = 601;
+  var MAIN_PIN_Y_LOCATION_CENTER = 406;
   var MIN_FLAT_PRICE = 1000;
   var MIN_BUNGALO_PRICE = 0;
   var MIN_HOUSE_PRICE = 5000;
@@ -22,6 +24,7 @@
     oneHundred: 100
   };
 
+  var mapElement = document.querySelector('.map');
   var mapPinMainElement = document.querySelector('.map__pin--main');
   var adFormElement = document.querySelector('.ad-form');
   var formFieldsetsElement = adFormElement.children;
@@ -51,7 +54,7 @@
   removeSelectedElements(roomOptions);
   removeSelectedElements(guestOptions);
 
-  adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION_CENTER + 'px';
+  adFormAddressElement.value = MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + MAIN_PIN_Y_LOCATION_CENTER + 'px';
 
   mapFiltersElement.classList.add('map__filters--disabled');
 
@@ -77,7 +80,7 @@
   guestOptions[2].setAttribute('selected', 'selected');
   guestOptions[2].removeAttribute('disabled', 'disabled');
 
-  var roomGuestMatching = function () {
+  var onRoomNumberInputChange = function () {
     setDisabledElements(guestOptions);
     guestOptions[2].removeAttribute('disabled', 'disabled');
 
@@ -100,10 +103,10 @@
     }
   };
 
-  roomNumberInputElement.addEventListener('change', roomGuestMatching);
-  mapPinMainElement.addEventListener('click', roomGuestMatching);
+  roomNumberInputElement.addEventListener('change', onRoomNumberInputChange);
+  //mapPinMainElement.addEventListener('click', roomGuestMatching);
 
-  roomNumberInputElement.addEventListener('change', function () {
+  var onRoomNumberInputSubmit = function () {
     if ((roomNumberInputElement.value === '' + roomsValue.one) && (guestNumberInputElement.value !== '' + capacityValue.one)) {
       guestNumberInputElement.setCustomValidity('Только для 1 гостя');
     } else if ((roomNumberInputElement.value === '' + roomsValue.two) &&
@@ -118,9 +121,11 @@
     } else {
       guestNumberInputElement.setCustomValidity('');
     }
-  });
+  };
 
-  guestNumberInputElement.addEventListener('change', function () {
+  roomNumberInputElement.addEventListener('change',onRoomNumberInputSubmit);
+
+  var onGuestNumberInputSubmit = function () {
     if ((roomNumberInputElement.value === '' + roomsValue.one) &&
       (guestNumberInputElement.value === '' + capacityValue.one)) {
       guestNumberInputElement.setCustomValidity('');
@@ -135,9 +140,13 @@
       (guestNumberInputElement.value === '' + capacityValue.none)) {
       guestNumberInputElement.setCustomValidity('');
     }
-  });
+  };
 
-  var housingTypeMatching = function () {
+  guestNumberInputElement.addEventListener('change', onGuestNumberInputSubmit);
+
+  priceInputElement.setAttribute('placeholder', MIN_FLAT_PRICE);
+  
+  var onHouseTypeChange = function () {
     var housingType = housingTypeElement.value;
 
     switch (housingType) {
@@ -164,10 +173,10 @@
     }
   };
 
-  mapPinMainElement.addEventListener('click', housingTypeMatching);
-  housingTypeElement.addEventListener('change', housingTypeMatching);
+  //mapPinMainElement.addEventListener('click', housingTypeMatching);
+  housingTypeElement.addEventListener('change', onHouseTypeChange);
 
-  var timeMatching = function (evt) {
+  var onTimeInOutChange = function (evt) {
     if (evt.target.value === '12:00') {
       timeOutInputElement.value = evt.target.value;
       timeInInputElement.value = evt.target.value;
@@ -180,10 +189,10 @@
     }
   };
 
-  timeFormElement.addEventListener('change', timeMatching);
+  timeFormElement.addEventListener('change', onTimeInOutChange);
 
   var deactivateState = function () {
-    window.map.mapElement.classList.add('map--faded');
+    mapElement.classList.add('map--faded');
     adFormElement.classList.add('ad-form--disabled');
     mapFiltersElement.classList.add('map__filters--disabled');
     mapFiltersElement.reset();
@@ -195,7 +204,7 @@
     mapPinMainElement.style.top = MAIN_PIN_LOCATION_Y + 'px';
     mapPinMainElement.style.left = MAIN_PIN_LOCATION_X + 'px';
     var deletePinElement = document.querySelectorAll('.map__pin--side');
-    adFormAddressElement.value = window.map.MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + window.map.MAIN_PIN_Y_LOCATION_CENTER + 'px';
+    adFormAddressElement.value = MAIN_PIN_X_LOCATION_CENTER + 'px' + ' ' + MAIN_PIN_Y_LOCATION_CENTER + 'px';
     userPreviewElement.src = 'img/muffin-grey.svg';
     var cleanPhotoArray = Array.from(housePreviewElement.querySelectorAll('img'));
 
@@ -213,12 +222,19 @@
     if (openedCardElement) {
       openedCardElement.remove();
     }
+
+    timeFormElement.removeEventListener('change', onTimeInOutChange);
+    housingTypeElement.removeEventListener('change', onHouseTypeChange);
+    guestNumberInputElement.removeEventListener('change', onGuestNumberInputSubmit);
+    roomNumberInputElement.removeEventListener('change', onRoomNumberInputChange);
+    roomNumberInputElement.removeEventListener('change',onRoomNumberInputSubmit);
+    adFormElement.removeEventListener('submit', onFormSubmit);
   };
 
   var successMessageElement = document.querySelector('#success').content.querySelector('.success');
   var mainElement = document.querySelector('main');
 
-  var submitHandler = function (evt) {
+  var onFormSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adFormElement), function () {
       deactivateState();
@@ -234,24 +250,28 @@
           messageElement.remove();
         }
       });
-    }, window.backend.errorHandler);
+    }, window.backend.onDataError);
   };
 
-  adFormElement.addEventListener('submit', submitHandler);
+  adFormElement.addEventListener('submit', onFormSubmit);
 
   var cleanButtonElement = adFormElement.querySelector('.ad-form__reset');
 
-  cleanButtonElement.addEventListener('click', function () {
+  var onCleanButtonClick = function () {
     adFormElement.reset();
     deactivateState();
-  });
+  };
 
-  cleanButtonElement.addEventListener('keydown', function (evt) {
+  cleanButtonElement.addEventListener('click', onCleanButtonClick);
+
+  var onCleanButtonPressEnter = function (evt) {
     if (evt.key === 'Enter') {
       adFormElement.reset();
       deactivateState();
     }
-  });
+  };
+
+  cleanButtonElement.addEventListener('keydown', onCleanButtonPressEnter);
 
   window.form = {
     removeDisabledElements: removeDisabledElements

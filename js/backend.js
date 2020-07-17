@@ -48,7 +48,7 @@
     xhr.send(data);
   };
 
-  var errorHandler = function () {
+  var onDataError = function () {
     var mainElement = document.querySelector('main');
     var errorElement = document.querySelector('#error').content.querySelector('.error');
     var errorClone = errorElement.cloneNode(true);
@@ -56,24 +56,30 @@
 
     var closeErrorButtonElement = errorElement.querySelector('.error__button');
 
-    closeErrorButtonElement.addEventListener('click', function () {
+    var onCloseErrorButtonClick = function () {
       errorClone.remove();
-    });
+    };
 
-    document.addEventListener('click', function () {
+    var onScreenClick = function () {
       errorClone.remove();
-    });
+    };
 
-    document.addEventListener('keydown', function (evtBoard) {
+    var onScreenPressEsc = function (evtBoard) {
       if (evtBoard.key === 'Escape') {
         errorClone.remove();
       }
-    });
+    };
+
+    closeErrorButtonElement.addEventListener('click', onCloseErrorButtonClick);
+
+    document.addEventListener('click', onScreenClick);
+
+    document.addEventListener('keydown', onScreenPressEsc); 
   };
 
   window.backend = {
     save: save,
     load: load,
-    errorHandler: errorHandler
+    onDataError: onDataError
   };
 })();

@@ -5,8 +5,7 @@
   var MIN_WORD_ROOMS_NUMBER = 1;
   var ZERO_WORD_ROOMS_NUMBER = 0;
   var WORD_GUEST_NUMBER = 1;
-  var featuresList = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
+  
   var getRoomType = function (array) {
 
     var roomType = '';
@@ -57,31 +56,33 @@
 
   var addFeatures = function (array, cardElement) {
     var features = array.offer.features;
+    var featuresElement = cardElement.querySelector('.popup__features');
 
     features.forEach(function (element) {
-      cardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).textContent = element;
+      featuresElement.querySelector('.popup__feature--' + element).textContent = element;
     });
   };
 
   var addPhotoToCard = function (array, cardElement) {
     var photosArray = array.offer.photos;
+    var photosElement = cardElement.querySelector('.popup__photos');
+    var firstPhotoElement = photosElement.querySelector('.popup__photo');
 
     if (photosArray.length === 0) {
-      cardElement.querySelector('.popup__photos').querySelector('.popup__photo').alt = 'Нет фото';
+      firstPhotoElement.alt = 'Нет фото';
     }
 
     photosArray.forEach(function (element, i) {
       if (i >= 1) {
         var addImage = '<img src=' + element + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
-        cardElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', addImage);
+        photosElement.insertAdjacentHTML('beforeend', addImage);
       } else {
-        cardElement.querySelector('.popup__photos').querySelector('.popup__photo').src = element;
+        firstPhotoElement.src = element;
       }
     });
   };
 
   window.data = {
-    featuresList: featuresList,
     getRoomType: getRoomType,
     getWordRoom: getWordRoom,
     getWordGuest: getWordGuest,

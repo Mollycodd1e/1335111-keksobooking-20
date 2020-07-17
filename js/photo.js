@@ -32,15 +32,19 @@
     }
   };
 
-  userPhotoChooserElement.addEventListener('change', function () {
+  var onUserPhotoChange = function () {
     photoChooser(userPhotoChooserElement, userPreviewElement);
-  });
+  };
 
-  housePhotoChooserElement.addEventListener('change', function () {
+  userPhotoChooserElement.addEventListener('change', onUserPhotoChange);
+
+  var onHousePhotoChange = function () {
     var newHouseImageElement = document.createElement('img');
     newHouseImageElement.width = imageParameters.width;
     newHouseImageElement.height = imageParameters.height;
     var newPreview = housePreviewElement.appendChild(newHouseImageElement);
     photoChooser(housePhotoChooserElement, newPreview);
-  });
+  };
+
+  housePhotoChooserElement.addEventListener('change', onHousePhotoChange);
 })();

@@ -1,10 +1,13 @@
 'use strict';
 
 (function () {
-  var popupElement = document.querySelector('#card').content.querySelector('.popup');
+  var featuresList = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
+  var popupElement = document.querySelector('#card').content.querySelector('.popup');
+  
   var getAdvertCardPopup = function (card) {
     var advertsCardElement = popupElement.cloneNode(true);
+    var featuresElement = advertsCardElement.querySelector('.popup__features');
 
     advertsCardElement.querySelector('.popup__avatar').src = card.author.avatar;
     advertsCardElement.querySelector('.popup__title').textContent = card.offer.title;
@@ -17,9 +20,9 @@
 
     window.data.addFeatures(card, advertsCardElement);
 
-    window.data.featuresList.forEach(function (element) {
-      if (advertsCardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).textContent === '') {
-        advertsCardElement.querySelector('.popup__features').querySelector('.popup__feature--' + element).style.display = 'none';
+    featuresList.forEach(function (element) {
+      if (featuresElement.querySelector('.popup__feature--' + element).textContent === '') {
+        featuresElement.querySelector('.popup__feature--' + element).style.display = 'none';
       }
     });
 
@@ -32,9 +35,11 @@
 
   var render = function (card) {
     var fragment = document.createDocumentFragment();
+    var mapElement = document.querySelector('.map');
+
     fragment.appendChild(getAdvertCardPopup(card));
 
-    window.map.mapElement.insertBefore(fragment, window.map.mapElement.querySelector('.map__filters-container'));
+    mapElement.insertBefore(fragment, mapElement.querySelector('.map__filters-container'));
   };
 
   window.popup = {
